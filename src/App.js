@@ -37,12 +37,13 @@ function App() {
     setInputValues({ ...inputValues });
     console.log(inputValues);
   };
-  const dateChangeHandler = (val) => {
+  const dateChangeHandler = (key, val) => {
     setDateValue(val);
-    // console.log(val)
+    // console.log(JSON.stringify(val))
+    console.log(new Date())
     inputValues["date"] = val;
     setInputValues({ ...inputValues });
-    // console.log(val)
+    // console.log(val)M /]yhj.vb
   };
   const onCourChangeHandler = (key, val) => {
     setCourse(val)
@@ -152,8 +153,8 @@ function App() {
               id="date"
               label="Date of Birth"
               type="date"
-              defaultValue="2017-05-24"
-              onChange={(e) => dateChangeHandler(e.target.value)}
+              // defaultValue={new Date().toISOSting()}
+              onChange={(e) => dateChangeHandler("Date",e.target.value)}
               sx={{ width: "100%" }}
               InputLabelProps={{
                 shrink: true,
