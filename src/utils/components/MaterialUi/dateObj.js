@@ -1,5 +1,4 @@
 import * as React from "react";
-// import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,8 +9,9 @@ export default function DatePicker(props) {
  
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
+      <Stack spacing={3} >
         <DesktopDatePicker
+        
           label={props.label}
           inputFormat="MM/DD/YYYY"
           value={props.value}
