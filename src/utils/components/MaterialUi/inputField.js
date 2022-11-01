@@ -7,7 +7,8 @@ export default function Input(props) {
       style={{ marginBlock: 20, width: "100%", alignSelf: "center" }}
       label={props.label}
       onChange={props.onChange}
-      // value={inputValues[data[i]]}
+      value={props.value}
+      placeholder= {props.placeholder}
     />
   );
 }

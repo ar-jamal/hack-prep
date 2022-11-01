@@ -29,6 +29,7 @@ function App() {
   const [course, setCourse] = useState("");
   const [sec, setSec] = useState("");
   const [dateValue, setDateValue] = useState(null);
+  const [age, setAge] = useState("")
   // const [changeDate, setChangeDate] =useState("")
 
   const inputChangeHandler = (key, val) => {
@@ -38,9 +39,17 @@ function App() {
     console.log(inputValues);
   };
   const dateChangeHandler = (key, val) => {
-    setDateValue(val);
-    // console.log(JSON.stringify(val))
-    console.log(new Date())
+    console.log(val)
+    const dateString = val.toString()
+    const formattedDate = new Date(dateString).toString().slice(4,15)
+    const curDate = new Date().toDateString().slice(4,15)
+    const miliSec = Date.parse(curDate) - Date.parse(`${formattedDate}`);
+    console.log(miliSec)
+    const year =  Math.floor(miliSec/(1000*60*60*24*365)) || ""
+    setAge(year)
+
+    console.log(age)
+    // console.log(new Date())
     inputValues["date"] = val;
     setInputValues({ ...inputValues });
     // console.log(val)M /]yhj.vb
@@ -163,8 +172,10 @@ function App() {
           </Grid>
           <Grid item xs={8}>
             <Input
-              label="Age"
+              label= "Age"
+              placeholder= {!age? "Age" : null}
             // onChange={false}
+            value= {age}
             />
           </Grid>
         </Grid>
