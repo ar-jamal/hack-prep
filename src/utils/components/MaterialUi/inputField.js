@@ -8,7 +8,9 @@ export default function Input(props) {
       label={props.label}
       onChange={props.onChange}
       value={props.value}
+      disabled= {props.disabled}
       placeholder= {props.placeholder}
+      onClick= {props.onClick}
     />
   );
 }
