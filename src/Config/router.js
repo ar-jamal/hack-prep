@@ -1,14 +1,18 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AdminPanel from "../Screens/DashboardScreens/adminPanel";
+import NotFound from "../Screens/DashboardScreens/NotFound";
 import StudentForm from "../Screens/studentForm";
 
 export default function AppRouter() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<StudentForm />} />
-                <Route path="adminpanel/*" element={<AdminPanel />} />
-            </Routes>
-        </Router>
+        <div style={{width: "100%", height: "100%"}}>
+            <Router>
+                <Routes>
+                    <Route index element={<StudentForm />} />
+                    <Route path="admin/*" element={<AdminPanel />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Router>
+        </div>
     )
 }
