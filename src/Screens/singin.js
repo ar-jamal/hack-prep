@@ -58,10 +58,10 @@ export default function Signin() {
                     dialogTitle="No user found"
                     dialogMessage="Kindly put the correct Email or Password "
                 />
-                <Box style={{ flex: 1, flexDirection: "row" }}>
+                <div style={{ flex: 1, flexDirection: "row" }}>
                     <h4 style={{ margin: 6 }}>Registered user?</h4>
                     <Button variant="outlined" onClick={() => navigate("/signup")}>Sign up</Button>
-                </Box>
+                </div>
             </div>
         </>
     )

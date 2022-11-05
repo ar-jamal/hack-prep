@@ -63,7 +63,7 @@ export default function StudentForm() {
 
     return (
         <div className="Layout">
-            <h2 style={{ marginBlock: "4%", fontSize: 28 }} >STUDENT FORM</h2>
+            <h2 style={{ marginBlock: "4%", fontSize: 28 }} >REGISTRATION FORM</h2>
             <div className="Body">
                 <Grid
                     container

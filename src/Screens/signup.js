@@ -22,7 +22,7 @@ export default function Signup() {
                 }
             })
             .catch((error) => {
-                const signupErr= error
+                setSignupErr(error);
             });
     }
     return (
