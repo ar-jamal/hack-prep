@@ -11,15 +11,21 @@ import Input from './inputField';
 
 export default function AlertDialog(props) {
     const [open, setOpen] = useState(false);
+
     return (
-        <div /* style={{ margin: 18 }} */ >
-             <Input
-              label="Age"
-              placeholder={props.placeholder}
-              onClick={props.onClick}
-              disabled={props.disabled}
-              value={props.value}
-            />
+        <div style={{ marginBlock: 18 }} >
+            {!!props.placeholder ?
+                < Input
+                    label="Age"
+                    placeholder={props.placeholder}
+                    onClick={props.onClick}
+                    disabled={props.disabled}
+                    value={props.value}
+                /> :
+                <Button variant="outlined" onClick={props.onClick}>
+                    sign in
+                </Button>
+            }
             <Dialog
                 open={props.open}
                 // onClose={handleClose}
@@ -27,11 +33,13 @@ export default function AlertDialog(props) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"age is dependent on Date of Birth"}
+                    {/* {"age is dependent on Date of Birth"} */}
+                    {props.dialogTitle}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Plz select your Date of Birth field
+                        {/* Plz select your Date of Birth field */}
+                        {props.dialogMessage}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

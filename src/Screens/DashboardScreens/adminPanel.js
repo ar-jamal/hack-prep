@@ -22,6 +22,9 @@ import CourseForm from "./courseForm";
 import QuizForm from "./quizForms";
 import ResultUpdate from "./resultUpdate";
 import NotFound from "./NotFound";
+import CoursesList from "./listOfCourses";
+import Signin from "../singin";
+import Signup from "../signup";
 const drawerWidth = 240;
 
 function AdminPanel({ data, ...props }) {
@@ -34,7 +37,7 @@ function AdminPanel({ data, ...props }) {
     };
     const drawerList = [
         {
-            route: "admin/",
+            route: "courseform",
             name: "Course Form",
             icon: () => <ListRounded />
         },
@@ -51,9 +54,9 @@ function AdminPanel({ data, ...props }) {
     ]
 
     const drawer = (
-        <div>
-            {/* <Toolbar /> */}
-            {/* <Divider /> */}
+        <div >
+            <Toolbar />
+            <Divider />
             <List>
                 {drawerList.map((Obj, index, { length }) => (
                     <ListItem key={index} disablePadding onClick={() => { index === length - 1 && setOpen(s => !s) }}>
@@ -64,33 +67,13 @@ function AdminPanel({ data, ...props }) {
                                 {Obj.icon()}
                             </ListItemIcon>
                             <ListItemText primary={Obj.name} />
-                            {
+                            {/* {
                                 index === length - 1 && (open ? <ExpandLess /> : <ExpandMore />)
-                            }
+                            } */}
                         </ListItemButton>
                     </ListItem>
                 ))}
-                {/* <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        {data.map((item, ind) => (
 
-                            <ListItem key={ind} onClick={() => navigate('/dashboard/news-data/details', {
-                                state: {
-                                    item
-                                }
-                            })}>
-
-                                <ListItemButton sx={{ pl: 4 }}>
-                                    <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon>
-                                    <ListItemText primary={item.title.slice(0, 5) + '...'} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))
-                        }
-                    </List>
-                </Collapse> */}
             </List>
         </div>
     );
@@ -172,10 +155,13 @@ function AdminPanel({ data, ...props }) {
                 <Toolbar />
                 <Box>
                     <Routes>
-                        <Route path="admin/" element={<CourseForm />} />
+                        <Route path="/" element={<Signin />} />
+                        <Route path="/" element={<Signup />} />
+                        <Route path="CoursesList" element={<CoursesList />} />
+                        <Route path="courseForm" element={<CourseForm />} />
                         <Route path="quizform" element={<QuizForm />} />
                         <Route path="resultupdate" element={<ResultUpdate />} />
-                        <Route path="*" element={<NotFound />} />
+                        <Route path="admin/*" element={<NotFound />} />
                     </Routes>
                 </Box>
             </Box>

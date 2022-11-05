@@ -170,10 +170,11 @@ export default function StudentForm() {
                             placeholder={!age ? "Age" : null}
                             onClick={ageDisabledHandler}
                             disabled={agedisabled}
-                            value={age >= 0 ? age : "Plz select back date for date of birth"}
-                            //AlerProps
+                            value={age > 0 ? age : "Plz select back date for date of birth"}
                             open={open}
                             onClose={onAlertClose}
+                            dialogTitle= "Date of Birth required"
+                            dialogMessage= "Plz Select your data of birth"
                         />
                         {/* <Input
               label="Age"
