@@ -1,12 +1,13 @@
 import app from "./firebaseConfig";
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import axios from "axios";
 
 // import { Password } from "@mui/icons-material";
 const db = getDatabase(app);
 const auth = getAuth(app)
-let signupUser = (obj) => {
-    let { email, password, userName } = obj
+const signupUser = (obj) => {
+    const { email, password, userName } = obj
     return new Promise((resolve, reject) => {
         // console.log(email)
         createUserWithEmailAndPassword(auth, email, password)
@@ -27,8 +28,8 @@ let signupUser = (obj) => {
 
     })
 }
-let signinUser = (obj) => {
-    let { email, password } = obj;
+const signinUser = (obj) => {
+    const { email, password } = obj;
     return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -51,7 +52,22 @@ let signinUser = (obj) => {
             })
     })
 }
-const logout =() => {
+const logout= () => {
     signOut(auth)
 }
+
+const sendData= (obj, nodeName, id) => {
+    // const database_URL= "https://jamal-hathon-prep-default-rtdb.firebaseio.com/"
+   let postListRef;
+   return new Promise((resolve, reject) => {
+    if (id) {
+        postListRef = ref(db, nodeName)
+    }
+   })
+
+
+
+}
+
+
 export { signupUser, signinUser, logout };

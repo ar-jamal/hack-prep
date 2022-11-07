@@ -13,7 +13,7 @@ export default function AlertDialog(props) {
     const [open, setOpen] = useState(false);
 
     return (
-        <div style={{ marginBlock: 18 }} >
+        <div /* style={{ marginBlock: 18 }} */ >
             {!!props.placeholder ?
                 < Input
                     label="Age"

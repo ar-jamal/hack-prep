@@ -5,16 +5,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function CusSelect({
-  label,
-  value,
-  onChange,
-  dataSource,
-  valueField,
-  displayField,
-}) {
+export default function CusSelect(props) {
+  const { label,
+    value,
+    onChange,
+    dataSource,
+    valueField,
+    displayField
+  } = props
   // const MenuList = {}
-  // console.log(props.child)
+  // console.log(props)
   return (
     <Box sx={{ minWidth: 120, marginY: 2 }}>
       <FormControl fullWidth>
@@ -26,16 +26,12 @@ export default function CusSelect({
           label={label}
           onChange={onChange}
         >
-         {dataSource && dataSource.length> 0 
-         ? dataSource.map((e) => {
-          <MenuItem value= {e[valueField? valueField : "id"]}>
-            {e[displayField? displayField : "fullName"]}
-          </MenuItem>
-         }) : null}
-          {/* {props.child01 && <MenuItem value={props.child01}>{props.child01}</MenuItem>}
-          {props.child02 && <MenuItem value={props.child02}>{props.child02}</MenuItem>}
-          {props.child03 && <MenuItem value={props.child03}>{props.child03}</MenuItem>}
-          {props.child04 && <MenuItem value={props.child04}>{props.child04}</MenuItem>} */}
+          {dataSource && dataSource.length > 0
+            ? dataSource.map((e,i) => (
+                <MenuItem value={e[valueField ? valueField : "id"]} key={i}>
+                  {e[displayField ? displayField : "fullName"]}
+                </MenuItem>
+              )) : null}
         </Select>
       </FormControl>
     </Box>

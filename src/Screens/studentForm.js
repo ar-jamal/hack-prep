@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import AlertDialog from "../utils/components/MaterialUi/AlertDialog";
 
 export default function StudentForm() {
-  const [inputValues, setInputValues] = useState({});
+  const [model, setModel] = useState({});
   const [course, setCourse] = useState("");
   const [sec, setSec] = useState("");
   const [dateValue, setDateValue] = useState(null);
@@ -17,49 +17,48 @@ export default function StudentForm() {
   const [open, setOpen] = useState(false);
 
   const inputChangeHandler = (key, val) => {
-    console.log(val);
-    inputValues[key] = val;
-    setInputValues({ ...inputValues });
-    console.log(inputValues);
+    model[key] = val;
+    setModel({ ...model });
   };
   const dateChangeHandler = (key, val) => {
-    console.log(val);
     const dateString = val.toString();
     const formattedDate = new Date(dateString).toString().slice(4, 15);
     const curDate = new Date().toDateString().slice(4, 15);
     const miliSec = Date.parse(curDate) - Date.parse(`${formattedDate}`);
-    console.log(miliSec);
     const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365)) || "";
     setAge(year);
 
-    console.log(age);
-    // console.log(new Date())
-    inputValues["date"] = val;
-    setInputValues({ ...inputValues });
-    // console.log(val)M /]yhj.vb
+    model["date"] = val;
+    setModel({ ...model });
   };
+
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
-    inputValues[key] = val;
-    setInputValues({ ...inputValues });
-    console.log(inputValues);
+    model[key] = val;
+    setModel({ ...model });
   };
   const onSecChangeHandler = (key, val) => {
     setSec(val);
-    inputValues[key] = val;
-    setInputValues({ ...inputValues });
-    console.log(inputValues);
+    model[key] = val;
+    setModel({ ...model });
   };
   const onAlertClose = () => {
     setOpen(false);
     setAgedisabled(false);
   };
   const ageDisabledHandler = () => {
-    console.log("onClick working");
     setAgedisabled(true);
     setOpen(true);
     // return <AlertDialog open={open} onClose={onAlertClose} />
   };
+
+  const onSubmitHandler = () => {
+    model.registrationDate = new Date().toISOString().slice(0, 10)
+    model.isFeeSubmitted = false
+    model.isApproved = false
+    model.isActive = false
+    console.log(model)
+  }
 
   return (
     <div className="Layout">
@@ -70,26 +69,26 @@ export default function StudentForm() {
             <Input
               required={true}
               label="First Name"
-              onChange={(e) => inputChangeHandler("First Name", e.target.value)}
+              onChange={(e) => inputChangeHandler("firstName", e.target.value)}
             />
           </Grid>
           <Grid item xs={4}>
             <Input
               label="Last Name"
-              onChange={(e) => inputChangeHandler("Last Name", e.target.value)}
+              onChange={(e) => inputChangeHandler("lastName", e.target.value)}
             />
           </Grid>
           <Grid item xs={4}>
             <Input
               required={true}
               label="Contact"
-              onChange={(e) => inputChangeHandler("Contact", e.target.value)}
+              onChange={(e) => inputChangeHandler("contact", e.target.value)}
             />
           </Grid>
           <Grid item xs={8}>
             <CusSelect
               label="Course *"
-              onChange={(e) => onCourChangeHandler("Course", e.target.value)}
+              onChange={(e) => onCourChangeHandler("course", e.target.value)}
               value={course}
               dataSource={[
                 { id: "wm", fullName: "Web & Mobile Development" },
@@ -102,20 +101,20 @@ export default function StudentForm() {
           <Grid item xs={4}>
             <CusSelect
               label="Sec *"
-              onChange={(e) => onSecChangeHandler("Sec", e.target.value)}
+              onChange={(e) => onSecChangeHandler("sec", e.target.value)}
               value={sec}
               dataSource={[
                 {
                   id: "a",
-                  sec: "A",
+                  fullName: "A",
                 },
                 {
                   id: "b",
-                  sec: "B",
+                  fullName: "B",
                 },
                 {
                   id: "c",
-                  sec: "C",
+                  fullName: "C",
                 },
               ]}
             />
@@ -178,22 +177,15 @@ export default function StudentForm() {
           <Grid item xs={8}>
             <AlertDialog
               label="Age"
-              placeholder={!age ? "Age" : null}
+              placeholder={age ? age.toString() : "Age"}
               onClick={ageDisabledHandler}
               disabled={agedisabled}
-              value={age > 0 ? age : "Plz select back date for date of birth"}
+              value={!!age && age > 0 ? age : "Plz select back date for date of birth"}
               open={open}
               onClose={onAlertClose}
-              dialogTitle="Date of Birth required"
-              dialogMessage="Plz Select your data of birth"
+              dialogTitle="Date of Birth required only"
+              dialogMessage="Age will be calculated on it"
             />
-            {/* <Input
-              label="Age"
-              placeholder={!age ? "Age" : null}
-              onClick={ageDisabledHandler}
-              disabled={agedisabled}
-              value={age}
-            /> */}
           </Grid>
         </Grid>
         <Button
@@ -204,7 +196,7 @@ export default function StudentForm() {
             marginBlock: 20,
             fontSize: 18,
           }}
-          // onClick={onSubmitHandler}
+          onClick={onSubmitHandler}
         >
           SUBMIT
         </Button>

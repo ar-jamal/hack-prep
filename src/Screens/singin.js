@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signinUser } from "../Config/firebaseMethods";
-import SigninBut from "../utils/components/MaterialUi/AlertDialog";
+import AlertWithButton from "../utils/components/MaterialUi/AlertDialog";
 
 export default function Signin() {
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function Signin() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </Box>
-                <Box>
+                <Box style={{marginBottom: 18}}>
                     <TextField
                         label='Password'
                         variant="standard"
@@ -51,7 +51,7 @@ export default function Signin() {
                     />
                 </Box>
                 {/* <Button style={{ margin: 28 }} onClick={signinAuth}> Sign in </Button> */}
-                <SigninBut
+                <AlertWithButton
                     onClick={signinAuth}
                     open={open}
                     onClose={handleClose}
