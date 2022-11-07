@@ -157,7 +157,7 @@ function AdminPanel({ data, ...props }) {
                     <Routes>
                         <Route path="/" element={<Signin />} />
                         <Route path="/" element={<Signup />} />
-                        <Route path="CoursesList" element={<CoursesList />} />
+                        <Route path="coursesList" element={<CoursesList />} />
                         <Route path="courseForm" element={<CourseForm />} />
                         <Route path="quizform" element={<QuizForm />} />
                         <Route path="resultupdate" element={<ResultUpdate />} />
