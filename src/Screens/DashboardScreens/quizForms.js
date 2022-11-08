@@ -1,11 +1,11 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import Input from "../../utils/components/MaterialUi/inputField";
-import CusSelect from "../../utils/components/MaterialUi/select";
+import Input from "../../utils/components/MaterialUi/cusInput";
+import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AlertDialog from "../../utils/components/MaterialUi/AlertDialog";
+import AlertDialog from "../../utils/components/MaterialUi/cusAlert";
 
 export default function QuizForm() {
   const [inputValues, setInputValues] = useState({});

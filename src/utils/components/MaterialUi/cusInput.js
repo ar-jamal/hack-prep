@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 
-export default function Input(props) {
+export default function CusInput(props) {
   return (
     <TextField
       required={props.required}

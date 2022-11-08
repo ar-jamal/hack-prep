@@ -1,14 +1,14 @@
 import "../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import Input from "../utils/components/MaterialUi/inputField";
-import CusSelect from "../utils/components/MaterialUi/select";
+import CusInput from "../utils/components/MaterialUi/cusInput";
+import CusSelect from "../utils/components/MaterialUi/cusSelect";
+import CusAlert from "../utils/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AlertDialog from "../utils/components/MaterialUi/AlertDialog";
 
 export default function StudentForm() {
-  const [model, setModel] = useState({});
+  const [filledForm, setFilledForm] = useState({});
   const [course, setCourse] = useState("");
   const [sec, setSec] = useState("");
   const [dateValue, setDateValue] = useState(null);
@@ -17,8 +17,8 @@ export default function StudentForm() {
   const [open, setOpen] = useState(false);
 
   const inputChangeHandler = (key, val) => {
-    model[key] = val;
-    setModel({ ...model });
+    filledForm[key] = val;
+    setFilledForm({ ...filledForm });
   };
   const dateChangeHandler = (key, val) => {
     const dateString = val.toString();
@@ -28,19 +28,19 @@ export default function StudentForm() {
     const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365)) || "";
     setAge(year);
 
-    model["date"] = val;
-    setModel({ ...model });
+    filledForm["date"] = val;
+    setFilledForm({ ...filledForm });
   };
 
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
-    model[key] = val;
-    setModel({ ...model });
+    filledForm[key] = val;
+    setFilledForm({ ...filledForm });
   };
   const onSecChangeHandler = (key, val) => {
     setSec(val);
-    model[key] = val;
-    setModel({ ...model });
+    filledForm[key] = val;
+    setFilledForm({ ...filledForm });
   };
   const onAlertClose = () => {
     setOpen(false);
@@ -49,15 +49,15 @@ export default function StudentForm() {
   const ageDisabledHandler = () => {
     setAgedisabled(true);
     setOpen(true);
-    // return <AlertDialog open={open} onClose={onAlertClose} />
+    // return <CusAlert open={open} onClose={onAlertClose} />
   };
 
   const onSubmitHandler = () => {
-    model.registrationDate = new Date().toISOString().slice(0, 10)
-    model.isFeeSubmitted = false
-    model.isApproved = false
-    model.isActive = false
-    console.log(model)
+    filledForm.registrationDate = new Date().toISOString().slice(0, 10)
+    filledForm.isFeeSubmitted = false
+    filledForm.isApproved = false
+    filledForm.isActive = false
+    console.log(filledForm)
   }
 
   return (
@@ -66,20 +66,20 @@ export default function StudentForm() {
       <div className="Body">
         <Grid container columnSpacing={3} /* columns={12} */>
           <Grid item xs={4}>
-            <Input
+            <CusInput
               required={true}
               label="First Name"
               onChange={(e) => inputChangeHandler("firstName", e.target.value)}
             />
           </Grid>
           <Grid item xs={4}>
-            <Input
+            <CusInput
               label="Last Name"
               onChange={(e) => inputChangeHandler("lastName", e.target.value)}
             />
           </Grid>
           <Grid item xs={4}>
-            <Input
+            <CusInput
               required={true}
               label="Contact"
               onChange={(e) => inputChangeHandler("contact", e.target.value)}
@@ -94,7 +94,7 @@ export default function StudentForm() {
                 { id: "wm", fullName: "Web & Mobile Development" },
                 { id: "py", fullName: "Python" },
                 { id: "ml", fullName: "Machine Learning" },
-                { id: "el", fullName: "English" },
+                { id: "el", fullName: "English Language" },
               ]}
             />
           </Grid>
@@ -120,14 +120,14 @@ export default function StudentForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Input
+            <CusInput
               required={true}
               label="CNIC"
               onChange={(e) => inputChangeHandler("CNIC", e.target.value)}
             />
           </Grid>
           <Grid item xs={6}>
-            <Input
+            <CusInput
               required={true}
               label="Father Name"
               onChange={(e) =>
@@ -136,7 +136,7 @@ export default function StudentForm() {
             />
           </Grid>
           <Grid item xs={6}>
-            <Input
+            <CusInput
               label="Father CNIC"
               onChange={(e) =>
                 inputChangeHandler("Father CNIC", e.target.value)
@@ -144,7 +144,7 @@ export default function StudentForm() {
             />
           </Grid>
           <Grid item xs={6}>
-            <Input
+            <CusInput
               required={true}
               label="Father Contact"
               onChange={(e) =>
@@ -153,7 +153,7 @@ export default function StudentForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Input
+            <CusInput
               required={true}
               label="Emergency Contact"
               onChange={(e) =>
@@ -175,7 +175,7 @@ export default function StudentForm() {
             />
           </Grid>
           <Grid item xs={8}>
-            <AlertDialog
+            <CusAlert
               label="Age"
               placeholder={age ? age.toString() : "Age"}
               onClick={ageDisabledHandler}

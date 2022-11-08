@@ -20,7 +20,7 @@ import { ExpandLess, ExpandMore, ListRounded, ReceiptLong, SortRounded, StarBord
 import { Collapse } from "@mui/material";
 import CourseForm from "./courseForm";
 import QuizForm from "./quizForms";
-import ResultUpdate from "./resultUpdate";
+import CreateResult from "./createResult";
 import NotFound from "./NotFound";
 import CoursesList from "./listOfCourses";
 import Signin from "../singin";
@@ -47,8 +47,8 @@ function AdminPanel({ data, ...props }) {
             icon: () => <ReceiptLong />
         },
         {
-            route: "resultupdate",
-            name: "Result Update",
+            route: "createresult",
+            name: "Creat Result",
             icon: () => <SortRounded />
         },
     ]
@@ -160,8 +160,8 @@ function AdminPanel({ data, ...props }) {
                         <Route path="coursesList" element={<CoursesList />} />
                         <Route path="courseForm" element={<CourseForm />} />
                         <Route path="quizform" element={<QuizForm />} />
-                        <Route path="resultupdate" element={<ResultUpdate />} />
-                        <Route path="admin/*" element={<NotFound />} />
+                        <Route path="createresult" element={<CreateResult />} />
+                        {/* <Route path="admin/*" element={<NotFound />} /> */}
                     </Routes>
                 </Box>
             </Box>

@@ -1,7 +1,6 @@
 import app from "./firebaseConfig";
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set, onValue } from "firebase/database";
-import axios from "axios";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
 // import { Password } from "@mui/icons-material";
 const db = getDatabase(app);
@@ -52,22 +51,55 @@ const signinUser = (obj) => {
             })
     })
 }
-const logout= () => {
+const logout = () => {
     signOut(auth)
 }
 
-const sendData= (obj, nodeName, id) => {
-    // const database_URL= "https://jamal-hathon-prep-default-rtdb.firebaseio.com/"
-   let postListRef;
-   return new Promise((resolve, reject) => {
-    if (id) {
-        postListRef = ref(db, nodeName)
-    }
-   })
+let sendData = (obj, nodeName, id) => {
+    let postListRef;
 
+    return new Promise((resolve, reject) => {
+        if (id) {
+            postListRef = ref(db, `${nodeName}/${id}`);
+        } else {
+            let addRef = ref(db, nodeName);
+            obj.id = push(addRef).key;
+            postListRef = ref(db, `${nodeName}/${obj.id}`);
+        }
+        set(postListRef, obj)
+            .then(() => {
+                resolve(`Data Send Successfully with this node ${nodeName}/${obj.id}`);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
 
+let getData = (nodeName, id) => {
+    let reference = ref(db, `${nodeName}/${id ? id : ""}`);
+    return new Promise((resolve, reject) => {
+        onValue(
+            reference,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    let data = snapshot.val();
+                    if (id) {
+                        resolve(data);
+                    } else {
+                        let arr = Object.values(data);
+                        resolve(arr);
+                    }
+                } else {
+                    // no data found
+                    reject("No Data Found");
+                }
+            },
+            {
+                onlyOnce: false,
+            }
+        );
+    });
+};
 
-}
-
-
-export { signupUser, signinUser, logout };
+export { signupUser, signinUser, logout, sendData, getData };

@@ -1,14 +1,14 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import Input from "../../utils/components/MaterialUi/inputField";
-import CusSelect from "../../utils/components/MaterialUi/select";
+import CusInput from "../../utils/components/MaterialUi/cusInput";
+import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AlertDialog from "../../utils/components/MaterialUi/AlertDialog";
+import CusAlert from "../../utils/components/MaterialUi/cusAlert";
 
 export default function CourseForm() {
-    const [inputValues, setInputValues] = useState({});
+    const [filledForm, setFilledForm] = useState({});
     const [AssTrainers, setAssTrainers] = useState([]);
     const [IsFormOpen, setIsFormOpen] = useState("");
 
@@ -16,36 +16,36 @@ export default function CourseForm() {
 
     const inputChangeHandler = (key, val) => {
         console.log(val)
-        inputValues[key] = val;
-        setInputValues({ ...inputValues });
-        console.log(inputValues);
+        filledForm[key] = val;
+        setFilledForm({ ...filledForm });
+        console.log(filledForm);
     };
 
     const onFormConfHandler = (key, val) => {
         setIsFormOpen(val)
-        inputValues[key] = val
-        setInputValues({ ...inputValues })
-        console.log(inputValues)
+        filledForm[key] = val
+        setFilledForm({ ...filledForm })
+        console.log(filledForm)
     };
 
     return (
-        <div sx= {{width: { sm: `calc(100% - 420px)` }}}>
+        <div sx={{ width: { sm: `calc(100% - 420px)` } }}>
             <h2 style={{ marginBlock: "4%", fontSize: 28, textAlign: "center" }} >COURSE FORM</h2>
             <div className="Body">
                 <Grid
                     container
-                    columnSpacing={3} 
+                    columnSpacing={3}
                 >
                     <Grid item xs={8}>
-                        <Input
+                        <CusInput
                             required={true}
                             label="Course Name "
-                            placeholder= "duration in month"
+                            placeholder="duration in month"
                             onChange={(e) => inputChangeHandler("Course Name", e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Input
+                        <CusInput
                             label="Course Duration"
                             onChange={(e) => inputChangeHandler("Course Duration", e.target.value)}
                         />
@@ -60,38 +60,31 @@ export default function CourseForm() {
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <Input
+                        <CusInput
                             label="No. of Quiz"
                             onChange={(e) => inputChangeHandler("NoOfQuiz", e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <Input
+                        <CusInput
                             label="Fee in Rupees "
                             onChange={(e) => inputChangeHandler("FeeInRupees", e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <Input
+                        <CusInput
                             label="Lead Trainer ID"
                             onChange={(e) => inputChangeHandler("LeadTrainerID", e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <Input
+                        <CusInput
                             label="Assistant Trainers"
                             onChange={(e) =>
                                 inputChangeHandler("AssTrainers", setAssTrainers([...AssTrainers, e]))
                             }
                         />
                     </Grid>
-                    {/* <Input
-              label="Age"
-              placeholder={!age ? "Age" : null}
-              onClick={ageDisabledHandler}
-              disabled={agedisabled}
-              value={age}
-            /> */}
                 </Grid>
                 <Button
                     variant="contained"
