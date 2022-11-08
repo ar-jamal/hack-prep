@@ -5,47 +5,7 @@ import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import CusAlert from "../../utils/components/MaterialUi/cusAlert";
 import CusSwitch from "../../utils/components/MaterialUi/cusSwitch";
 import { getData, sendData } from "../../Config/firebaseMethods";
-
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import CusTable from "../../utils/components/MaterialUi/cusTable";
 
 function CreateResult() {
   const [filledForm, setFilledForm] = useState({});
@@ -62,50 +22,50 @@ function CreateResult() {
   const [resultData, setResultData] = useState([
     {
       name: "JAMAL KARIM",
-      marks: 60,
       rollNum:  `JAM001` ,
+      marks: 60,
       result: "Pass",
     },
     {
       name: "SALMAN KARIM",
-      marks: 65,
       rollNum:  `SAM002` ,
+      marks: 65,
       result: "Pass",
     },
     {
       name: "SIKANDER KARIM",
-      marks: 75,
       rollNum: "SIK003",
+      marks: 75,
       result: "Pass",
     },
     {
       name: "QAISAR KARIM",
-      marks: 85,
       rollNum: "QAIS004",
+      marks: 85,
       result: "Pass",
     },
     {
       name: "SHEHROZ KARIM",
-      marks: 60,
       rollNum: "SHE005",
+      marks: 60,
       result: "Pass",
     },
     {
       name: "FAISAL KARIM",
-      marks: 55,
       rollNum: "FAIS006",
+      marks: 55,
       result: "Pass",
     },
     {
       name: "BABAR ALI",
-      marks: 45,
       rollNum: "BAB007",
+      marks: 45,
       result: "Pass",
     },
     {
       name: "ASIF ALI",
-      marks: 80,
       rollNum: "ASF008",
+      marks: 80,
       result: "Pass",
     },
   ]);
@@ -181,16 +141,8 @@ function CreateResult() {
           </Grid>
           <Grid item md={12}>
             <Box>
-              <table>
-                {resultData.map((x, i) => (
-                  <tr>
-                    <td>{x.name}</td>
-                    <td>{x.rollNum}</td>
-                    <td>{x.result}</td>
-                    <td>{x.marks}</td>
-                  </tr>
-                ))}
-              </table>
+              <CusTable/>
+             
             </Box>
           </Grid>
           <Grid md={6} item>
