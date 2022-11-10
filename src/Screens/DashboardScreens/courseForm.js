@@ -17,23 +17,13 @@ export default function CourseForm() {
   const [open, setOpen] = useState(false);
 
   const inputChangeHandler = (key, val) => {
-    console.log(trainers);
+    // console.log(trainers);
     filledForm[key] = val;
     setFilledForm({ ...filledForm });
     // console.log(filledForm);
   };
 
-  const onFormConfHandler = (key, val) => {
-    setIsFormOpen(val);
-    filledForm[key] = val;
-    setFilledForm({ ...filledForm });
-    console.log(filledForm);
-  };
-  const assTrainersInput = (val) => {
-    setAssTrainers([...assTrainers, val]);
-    filledForm.assTrainers = [...assTrainers];
-  };
-  const TrainersInput = (trainers) => {
+  const trainersInput = (trainers) => {
     console.log(trainers);
     let items = [];
     for (let i = 0; i < trainers; i++) {
@@ -42,7 +32,8 @@ export default function CourseForm() {
           <CusInput
             key={i}
             label={`Assistant Trainer-${i + 1}`}
-            onChange={(e) => setAssTrainers(e.target.value)}
+            onChange={(e) => setAssTrainers([...assTrainers.push(e.target.value)])}
+            value={assTrainers[i]}
           />
         </Grid>
       );
@@ -104,32 +95,37 @@ export default function CourseForm() {
               }
             />
           </Grid>
+          {!!trainers && trainersInput(trainers)}
           <Grid item xs={12}>
-            <CusSelect
-              label="Assistant Trainers "
-              onChange={(e) =>
-                // setTrainers([...trainers.splice(0, e.target.value, 1)])
-                setTrainers(e.target.value)
-              }
-              dataSource={[1, 2, 3, 4]}
-              // value={IsFormOpen}
-            />
+            <div style={{display: "flex", justifyContent: "space-between" }}>
+              <Button
+                variant="outlined"
+                onClick={() => setTrainers(trainers + 1)}
+                style={{
+                  minWidth: "15%",
+                  alignSelf: "start",
+                  marginBlock: 20,
+                  fontSize: 18,
+                }}
+              >
+                Add Assistant Trainers
+              </Button>
+              <Button
+                variant="contained"
+                style={{
+                  minWidth: "15%",
+                  alignSelf: "end",
+                  marginBlock: 20,
+                  fontSize: 18,
+                }}
+              // onClick={onSubmitHandler}
+              >
+                SUBMIT
+              </Button>
+            </div>
           </Grid>
-          {!!trainers && TrainersInput(trainers)}
         </Grid>
-        <Button
-          variant="contained"
-          style={{
-            width: "15%",
-            alignSelf: "end",
-            marginBlock: 20,
-            fontSize: 18,
-          }}
-          // onClick={onSubmitHandler}
-        >
-          SUBMIT
-        </Button>
       </div>
-    </div>
+    </div >
   );
 }

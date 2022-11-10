@@ -1,7 +1,7 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import Input from "../../utils/components/MaterialUi/cusInput";
+import CusInput from "../../utils/components/MaterialUi/cusInput";
 import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -9,8 +9,11 @@ import AlertDialog from "../../utils/components/MaterialUi/cusAlert";
 
 export default function QuizForm() {
   const [inputValues, setInputValues] = useState({});
-  const [AssTrainers, setAssTrainers] = useState([]);
+  const [Assoptions, setAssoptions] = useState([]);
   const [IsFormOpen, setIsFormOpen] = useState("");
+  const [options, setOptions] = useState(0)
+  const [ansOptions, setAnsOptions] = useState([])
+  const [moreQues, setMoreQues] = useState(0s)
 
   const [open, setOpen] = useState(false);
 
@@ -21,23 +24,40 @@ export default function QuizForm() {
     console.log(inputValues);
   };
 
-  const Options = (key, val) => {
-    const options = [];
-    options.push(val);
-    inputValues["Options"] = [...options];
-    setInputValues({ ...inputValues });
-    // console.log(inputValues)
+  // const Options = (key, val) => {
+  //   const options = [];
+  //   options.push(val);
+  //   inputValues["Options"] = [...options];
+  //   setInputValues({ ...inputValues });
+  //   // console.log(inputValues)
+  // };
+  const optionsInput = (options) => {
+    console.log(options);
+    let items = [];
+    for (let i = 0; i < options; i++) {
+      items.push(
+        <Grid item xs={4}>
+          <CusInput
+            key={i}
+            label={`Option-${i + 1}`}
+            onChange={(e) => setAnsOptions([...ansOptions.push(e.target.value)])}
+            value={ansOptions[i]}
+          />
+        </Grid>
+      );
+    }
+    return items;
   };
 
   return (
     <div sx={{ width: { sm: `calc(100% - 420px)` } }}>
       <h2 style={{ marginBlock: "4%", fontSize: 28, textAlign: "center" }}>
-        COURSE FORM
+        QUIZ FORM
       </h2>
       <div className="Body">
         <Grid container columnSpacing={3}>
           <Grid item xs={8}>
-            <Input
+            <CusInput
               required={true}
               label="Question"
               // placeholder= "create questions"
@@ -45,58 +65,50 @@ export default function QuizForm() {
             />
           </Grid>
           <Grid item xs={4}>
-            <Input
+            <CusInput
               label="Correct Answer *"
               onChange={(e) =>
                 inputChangeHandler("CorrectAnswer", e.target.value)
               }
             />
           </Grid>
-          {/* <div style={{ marginTop: 30, marginBottom: 12, width: "100%", marginLeft: 24 }}>
-            <hr />
-          </div> */}
           <Grid item xs={12} sx={{ marginTop: "30" }}>
-            <h4>OPTIONS: *</h4>
+            <Button
+              onClick={() => setOptions(options + 1)}
+              style={{
+                minWidth: "15%",
+                alignSelf: "start",
+                marginBlock: 20,
+                fontSize: 18,
+              }}
+            >
+              Add Ans Options
+            </Button>
           </Grid>
-          <Grid item xs={6}>
-            <Input
-              marginTop= "0"
-              label="Option 1"
-              onChange={(e) => Options("Option01", e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              marginTop= "0"
-              label="Option 2"
-              onChange={(e) => Options("Option02", e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              // marginTop= "10"
-              label="Option 3"
-              onChange={(e) => Options("Option03", e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Input
-              // marginTop= "10"
-              label="Option 4"
-              onChange={(e) => Options("Option04", e.target.value)}
-            />
-          </Grid>
-          <div style={{ marginBottom: 20,marginTop: 12, width: "100%", marginLeft: 24 }}>
-            {/* <hr /> */}
-          </div>
+          {!!options && optionsInput(options)}
           <Grid item xs={12}>
-            <Input
+            <Button
+              variant="contained"
+              onClick={() => setOptions(options + 1)}
+              style={{
+                minWidth: "15%",
+                alignSelf: "start",
+                marginBlock: 20,
+                fontSize: 18,
+              }}
+            >
+              Add more Questions
+            </Button>
+          </Grid>
+          {!!options && optionsInput(options)}
+          <Grid item xs={12}>
+            <CusInput
               label="Duration *"
               onChange={(e) => inputChangeHandler("Duration", e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
-            <Input
+            <CusInput
               label="Total Marks"
               onChange={(e) => inputChangeHandler("TotalMarks", e.target.value)}
             />
@@ -110,11 +122,11 @@ export default function QuizForm() {
             marginBlock: 20,
             fontSize: 18,
           }}
-          // onClick={onSubmitHandler}
+        // onClick={onSubmitHandler}
         >
           SUBMIT
         </Button>
       </div>
-    </div>
+    </div >
   );
 }
