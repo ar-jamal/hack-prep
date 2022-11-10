@@ -6,7 +6,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function CusSelect(props) {
-  const { label,
+  console.log(props)
+  let { 
+    label,
     value,
     onChange,
     dataSource,
@@ -14,7 +16,7 @@ export default function CusSelect(props) {
     displayField
   } = props
   // const MenuList = {}
-  // console.log(props)
+  // console.log(dataSource)
   return (
     <Box sx={{ minWidth: 120, marginY: 2 }}>
       <FormControl fullWidth>
@@ -26,12 +28,14 @@ export default function CusSelect(props) {
           label={label}
           onChange={onChange}
         >
-          {dataSource && dataSource.length > 0
+          {dataSource && dataSource.length > 0 && displayField
             ? dataSource.map((e,i) => (
-                <MenuItem value={e[valueField ? valueField : "id"]} key={i}>
-                  {e[displayField ? displayField : "fullName"]}
+                <MenuItem value={e[valueField ? valueField : i? i : "id"]} key={i}>
+                  {e[displayField ? displayField : i? i : "fullName"]}
                 </MenuItem>
-              )) : null}
+              )) : dataSource.map((e,i) => (
+                <MenuItem key= {i} value={e} >{e}</MenuItem>
+              ))}
         </Select>
       </FormControl>
     </Box>

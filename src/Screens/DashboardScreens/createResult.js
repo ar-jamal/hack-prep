@@ -119,7 +119,7 @@ function CreateResult() {
             <CusSelect
               label="Course"
               onChange={(e) => setFilledForm({ ...filledForm, course: e.target.value })}
-              datasource={[
+              dataSource={[
                 {
                   id: "wm",
                   fullName: "Web And Mobile Development",
@@ -159,7 +159,7 @@ function CreateResult() {
                     valuefield="id"
                     displayField="fullName"
                     value={x.cource}
-                    datasource={[
+                    dataSource={[
                       {
                         id: "wm",
                         fullName: "Web And Mobile",

@@ -28,7 +28,7 @@ export default function CusAlert(props) {
             }
             <Dialog
                 open={props.open}
-                // onClose={handleClose}
+                // onClose={handleClose} 
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
