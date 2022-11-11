@@ -6,31 +6,25 @@ import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import AlertDialog from "../../utils/components/MaterialUi/cusAlert";
+import { map } from "@firebase/util";
 
 export default function QuizForm() {
+  const [filledQues, setFilledQues] = useState([]);
   const [inputValues, setInputValues] = useState({});
-  const [Assoptions, setAssoptions] = useState([]);
-  const [IsFormOpen, setIsFormOpen] = useState("");
-  const [options, setOptions] = useState(0)
-  const [ansOptions, setAnsOptions] = useState([])
-  const [moreQues, setMoreQues] = useState(0s)
-
+  const [options, setOptions] = useState(0);
+  const [question, setQuestion] = useState("");
+  const [correctAns, setCorrectAns] = useState("");
+  const [ansOptions, setAnsOptions] = useState([]);
+  const [moreQues, setMoreQues] = useState([]);
   const [open, setOpen] = useState(false);
 
   const inputChangeHandler = (key, val) => {
     console.log(val);
     inputValues[key] = val;
-    setInputValues({ ...inputValues });
+    setInputValues({ ...inputValues, ansOptions: ansOptions });
     console.log(inputValues);
   };
 
-  // const Options = (key, val) => {
-  //   const options = [];
-  //   options.push(val);
-  //   inputValues["Options"] = [...options];
-  //   setInputValues({ ...inputValues });
-  //   // console.log(inputValues)
-  // };
   const optionsInput = (options) => {
     console.log(options);
     let items = [];
@@ -40,13 +34,20 @@ export default function QuizForm() {
           <CusInput
             key={i}
             label={`Option-${i + 1}`}
-            onChange={(e) => setAnsOptions([...ansOptions.push(e.target.value)])}
-            value={ansOptions[i]}
+            onChange={(e) =>
+              setAnsOptions([...ansOptions.push(items[i].e.target.value)])
+            }
+            // value={ansOptions[i]}
           />
         </Grid>
       );
     }
     return items;
+  };
+
+  const addQuestion = () => {
+    setFilledQues([...filledQues.push(inputValues)]);
+    console.log(filledQues)
   };
 
   return (
@@ -89,7 +90,7 @@ export default function QuizForm() {
           <Grid item xs={12}>
             <Button
               variant="contained"
-              onClick={() => setOptions(options + 1)}
+              onClick={() => addQuestion()}
               style={{
                 minWidth: "15%",
                 alignSelf: "start",
@@ -100,7 +101,6 @@ export default function QuizForm() {
               Add more Questions
             </Button>
           </Grid>
-          {!!options && optionsInput(options)}
           <Grid item xs={12}>
             <CusInput
               label="Duration *"
@@ -122,11 +122,32 @@ export default function QuizForm() {
             marginBlock: 20,
             fontSize: 18,
           }}
-        // onClick={onSubmitHandler}
+          // onClick={onSubmitHandler}
         >
           SUBMIT
         </Button>
+        <Grid container spacing={4}>
+          {filledQues &&
+            filledQues.length > 0 
+            ? filledQues.map((e, i) => (
+              <>
+                <Grid item xs={12}>
+                  <Typography>{filledQues[i].question}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography>{filledQues[i].correctAns}</Typography>
+                </Grid>
+                {ansOptions &&
+                  ansOptions > 0
+                  ? ansOptions.map((x, j) => (
+                    <Grid item xs={4}>
+                      <Typography>{filledQues[i].ansOptions[j]}</Typography>
+                    </Grid>
+                  )) : null}
+              </>
+            )) : null}
+        </Grid>
       </div>
-    </div >
+    </div>
   );
 }
