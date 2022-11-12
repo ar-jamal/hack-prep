@@ -1,20 +1,22 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCHqU5jZtBVzUqamQrcVZFVvrEWb-f1_3U",
-  authDomain: "todo-authentication-d24db.firebaseapp.com",
-  projectId: "todo-authentication-d24db",
-  storageBucket: "todo-authentication-d24db.appspot.com",
-  messagingSenderId: "471397567057",
-  appId: "1:471397567057:web:09b97be6b8cee51b8f4670"
+  apiKey: "AIzaSyBhZ_T8JUieFSwf9KGt0cukNSfTMZs1Yvc",
+  authDomain: "hackathon-prep-7397f.firebaseapp.com",
+  projectId: "hackathon-prep-7397f",
+  storageBucket: "hackathon-prep-7397f.appspot.com",
+  messagingSenderId: "949720788428",
+  appId: "1:949720788428:web:4ca106d62ee5b49d1f4169",
+  measurementId: "G-SRK9KQQSHV"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
+const analytics = getAnalytics(app);
 export default app;

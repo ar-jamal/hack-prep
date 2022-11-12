@@ -6,7 +6,8 @@ import CusSelect from "../../utils/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import AlertDialog from "../../utils/components/MaterialUi/cusAlert";
-import { map } from "@firebase/util";
+import { sendData } from "../../Config/firebaseMethods";
+// import { map } from "@firebase/util";
 
 export default function QuizForm() {
   const [filledQues, setFilledQues] = useState([]);
@@ -15,19 +16,23 @@ export default function QuizForm() {
   const [question, setQuestion] = useState("");
   const [correctAns, setCorrectAns] = useState("");
   const [ansOptions, setAnsOptions] = useState([]);
+  // const [copyOptions, setCopyOptions] = useState([])
   const [moreQues, setMoreQues] = useState([]);
   const [open, setOpen] = useState(false);
+  const [otherInputVals, setOtherInputVals] = useState({})
 
   const inputChangeHandler = (key, val) => {
     // console.log(val);
     inputValues[key] = val;
-    setInputValues({ ...inputValues, ansOptions: ansOptions });
+    setInputValues({ ...inputValues });
     console.log(inputValues);
   };
   const onAnsInputHandler = (i, val) => {
     const copyOptions = [...ansOptions]
-    copyOptions[i] = val 
+    copyOptions[i] = val
     setAnsOptions([...copyOptions]);
+    inputValues["ansOptions"] = ansOptions
+    console.log(inputValues)
   };
 
   const optionsInput = (options) => {
@@ -38,7 +43,6 @@ export default function QuizForm() {
         <Grid key={i} item xs={4}>
           <CusInput
             // key={i}
-            
             label={`Option-${i + 1}`}
             onChange={(e) => onAnsInputHandler(i, e.target.value)}
             value={ansOptions[i]}
@@ -50,12 +54,34 @@ export default function QuizForm() {
   };
 
   const addQuestion = () => {
-    setFilledQues([...filledQues.push(inputValues)]);
+    console.log(filledQues)
+    // setFilledQues([...filledQues.push(inputValues)]);
+    filledQues.push(inputValues);
+    setFilledQues([...filledQues])
     console.log(filledQues);
   };
-  console.log(ansOptions)
+
+  const otherInpValsHandler = (key, val) => {
+
+    !!otherInputVals.key === "duration"
+      ? otherInputVals.key = `${val}&nbsp;minutes`
+      : otherInputVals[key] = val;
+  }
+
+  const onFormSubmitHandler = () => {
+    filledQues.push(otherInputVals)
+    sendData(filledQues, `quizData/`)
+      .then((success) => {
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  };
+
+
   return (
-    <div sx={{ width: { sm: `calc(100% - 420px)` }, display: "flex" }}>
+    <div sx={{ width: { sm: `calc(100% - 420px)` }, display: "flex", height: "100vh" }}>
       <h2 style={{ marginBlock: "4%", fontSize: 28, textAlign: "center" }}>
         QUIZ FORM
       </h2>
@@ -94,7 +120,7 @@ export default function QuizForm() {
         <Grid item xs={12}>
           <Button
             variant="contained"
-            onClick={() => addQuestion()}
+            onClick={addQuestion}
             style={{
               minWidth: "15%",
               alignSelf: "start",
@@ -108,48 +134,48 @@ export default function QuizForm() {
         <Grid item xs={12}>
           <CusInput
             label="Duration *"
-            onChange={(e) => inputChangeHandler("Duration", e.target.value)}
+            onChange={(e) => otherInpValsHandler("Duration", e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <CusInput
             label="Total Marks"
-            onChange={(e) => inputChangeHandler("TotalMarks", e.target.value)}
+            onChange={(e) => otherInpValsHandler("TotalMarks", e.target.value)}
           />
         </Grid>
-      </Grid>
-      <Button
-        variant="contained"
-        style={{
-          width: "15%",
-          alignSelf: "end",
-          marginBlock: 20,
-          fontSize: 18,
-        }}
-        // onClick={onSubmitHandler}
-      >
-        SUBMIT
-      </Button>
-      <Grid container spacing={4}>
-        {filledQues && filledQues.length > 0
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            style={{
+              width: "15%",
+              alignSelf: "end",
+              marginBlock: 20,
+              fontSize: 18,
+            }}
+            onClick={onFormSubmitHandler}
+          >
+            SUBMIT
+          </Button>
+        </Grid>
+        {/* <Grid container spacing={4}> */}
+        {!!filledQues && filledQues.length > 0
           ? filledQues.map((e, i) => (
-              <>
-                <Grid item xs={12}>
-                  <Typography>{filledQues[i].question}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography>{filledQues[i].correctAns}</Typography>
-                </Grid>
-                {ansOptions && ansOptions > 0
-                  ? ansOptions.map((x, j) => (
-                      <Grid item xs={4}>
-                        <Typography>{filledQues[i].ansOptions[j]}</Typography>
-                      </Grid>
-                    ))
-                  : null}
-              </>
-            ))
-          : null}
+            <div>
+              <Grid item xs={12}>
+                <Typography>{filledQues[i].question}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>{filledQues[i].correctAns}</Typography>
+              </Grid>
+              {e.ansOptions && e.ansOptions > 0
+                ? e.ansOptions.map((x, j) => (
+                  <Grid item xs={4}>
+                    <Typography>{filledQues[i].ansOptions[j]}</Typography>
+                  </Grid>
+                )) : null}
+            </div>
+          ))
+          : "no question found"}
       </Grid>
       {/* </div> */}
     </div>

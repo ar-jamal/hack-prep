@@ -183,8 +183,8 @@ export default function StudentForm() {
               value={!!age && age > 0 ? age : "Plz select back date for date of birth"}
               open={open}
               onClose={onAlertClose}
-              dialogTitle="Date of Birth required only"
-              dialogMessage="Age will be calculated on it"
+              alertTitle="Date of Birth required only"
+              alertMessage="Age will be calculated on it"
             />
           </Grid>
         </Grid>

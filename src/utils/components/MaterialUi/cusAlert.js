@@ -16,7 +16,7 @@ export default function CusAlert(props) {
         <div /* style={{ marginBlock: 18 }} */ >
             {!!props.placeholder ?
                 < Input
-                    label="Age"
+                    label={props.label}
                     placeholder={props.placeholder}
                     onClick={props.onClick}
                     disabled={props.disabled}
@@ -34,12 +34,12 @@ export default function CusAlert(props) {
             >
                 <DialogTitle id="alert-dialog-title">
                     {/* {"age is dependent on Date of Birth"} */}
-                    {props.dialogTitle}
+                    {props.alertTitle}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         {/* Plz select your Date of Birth field */}
-                        {props.dialogMessage}
+                        {props.alertMessage}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
