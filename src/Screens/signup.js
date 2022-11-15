@@ -1,24 +1,33 @@
+import * as React from "react"
 import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../Config/firebaseMethods";
-
+import RadioGroupForm from "../utils/components/MaterialUi/radioGroup";
 
 export default function Signup() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
+    const [category, setCategory] = useState("")
     const [signupErr, setSignupErr] = useState("")
-    let signupAuth = () => {
-        signupUser({ email, password, userName })
+
+    const [value, setValue] = useState("std");
+
+    const onRadioChangeHandler = (event) => {
+        setValue(event.target.value);
+
+      };
+
+    const signupAuth = () => {
+        signupUser({ email, password, userName, category })
             .then((success) => {
                 // console.log(success)
                 if (success) {
                     console.log(userName)
                     navigate(`/${userName.split(" ")}`, /* {state: userName} */)
-
                 }
             })
             .catch((error) => {
@@ -26,8 +35,27 @@ export default function Signup() {
             });
     }
     return (
-        <>
+        <div style= {{marginLeft: "3vw"}}>
             <h1>Sign up</h1>
+            <RadioGroupForm
+                value={value}
+                onChange={onRadioChangeHandler}
+                dataSource= {[
+                    {
+                        label: "student",
+                        value: "std"
+                    },
+                    {
+                        label: "admin",
+                        value: "adm"
+                    },
+                    {
+                        label: "admin staff",
+                        value: "adms"
+                    },
+                ]}
+            />
+
             <Box style={{ flexDirection: "column" }} >
                 <TextField
                     style={{ margin: 12 }}
@@ -57,6 +85,6 @@ export default function Signup() {
                 <h4 style={{ margin: 6 }}>Already have an account?</h4>
                 <Button variant="outlined" onClick={() => navigate("/")}>Sign in</Button>
             </Box>
-        </>
+        </div>
     )
 }

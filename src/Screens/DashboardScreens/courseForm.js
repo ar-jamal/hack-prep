@@ -13,9 +13,14 @@ export default function CourseForm() {
   const [trainers, setTrainers] = useState(0);
   const [assTrainers, setAssTrainers] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState("");
-
   const [open, setOpen] = useState(false);
+  const [course, setCourse] =useState("")
 
+  const onCourChangeHandler = (key, val) => {
+    setCourse(val);
+      filledForm[key] = val;
+    // setFilledForm({ ...filledForm });
+  };
   const inputChangeHandler = (key, val) => {
     // console.log(trainers);
     filledForm[key] = val;
@@ -33,6 +38,7 @@ export default function CourseForm() {
             key={i}
             label={`Assistant Trainer-${i + 1}`}
             onChange={(e) => setAssTrainers([...assTrainers.push(e.target.value)])}
+            // onChange={(e) => onAssTrainersChange(e.target.value)}
             value={assTrainers[i]}
           />
         </Grid>
@@ -56,18 +62,22 @@ export default function CourseForm() {
             />
           </Grid>
           <Grid item xs={8}>
-            <CusInput
-              required={true}
-              label="Course Name "
-              placeholder="duration in month"
-              onChange={(e) =>
-                inputChangeHandler("Course Name", e.target.value)
-              }
+          <CusSelect
+              label="Courses *"
+              onChange={(e) => onCourChangeHandler("course", e.target.value)}
+              value={course}
+              dataSource={[
+                { id: "wm", fullName: "Web & Mobile Development" },
+                { id: "py", fullName: "Python" },
+                { id: "ml", fullName: "Machine Learning" },
+                { id: "el", fullName: "English Language" },
+              ]}
             />
           </Grid>
           <Grid item xs={4}>
             <CusInput
               label="Course Duration"
+              placeholder="duration in month"
               onChange={(e) =>
                 inputChangeHandler("Course Duration", e.target.value)
               }
@@ -105,7 +115,7 @@ export default function CourseForm() {
                   minWidth: "15%",
                   alignSelf: "start",
                   marginBlock: 20,
-                  fontSize: 18,
+                  fontSize: 16,
                 }}
               >
                 Add Assistant Trainers

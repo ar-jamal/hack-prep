@@ -31,7 +31,6 @@ export default function StudentForm() {
     filledForm["date"] = val;
     setFilledForm({ ...filledForm });
   };
-
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
     filledForm[key] = val;

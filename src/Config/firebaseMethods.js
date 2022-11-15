@@ -5,15 +5,15 @@ import { getDatabase, ref, set, onValue, push } from "firebase/database";
 // import { Password } from "@mui/icons-material";
 const db = getDatabase(app);
 const auth = getAuth(app)
-const signupUser = (obj) => {
-    const { email, password, userName } = obj
+const signupUser = (Arg) => {
+    const { email, password, userName, category } = Arg
     return new Promise((resolve, reject) => {
         // console.log(email)
-        createUserWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password, )
             .then((userCredential) => {
                 const user = userCredential.user;
                 const reference = ref(db, `users/${user.uid}`)
-                set(reference, obj)
+                set(reference, Arg)
                     .then(() => {
                         resolve("credentials submitted successfully")
                     })

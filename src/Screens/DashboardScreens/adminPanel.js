@@ -16,174 +16,184 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { ExpandLess, ExpandMore, ListRounded, ReceiptLong, SortRounded, StarBorder } from "@mui/icons-material";
+import {
+  ExpandLess,
+  ExpandMore,
+  ListRounded,
+  ReceiptLong,
+  SortRounded,
+  StarBorder,
+} from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import CourseForm from "./courseForm";
 import QuizForm from "./quizForm";
-import CreateResult from "./createResult";
 import NotFound from "./NotFound";
 import CoursesList from "./listOfCourses";
 import Signin from "../singin";
 import Signup from "../signup";
 import QuizFormB from "./quizFormB";
+import CreateResult from "./createResult"
 const drawerWidth = 240;
 
 function AdminPanel({ data, ...props }) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [open, setOpen] = React.useState(false);
-    const navigate = useNavigate();
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-    const drawerList = [
-        {
-            route: "courseform",
-            name: "Course Form",
-            icon: () => <ListRounded />
-        },
-        {
-            route: "quizform",
-            name: "Quiz form",
-            icon: () => <ReceiptLong />
-        },
-        {
-            route: "quizformb",
-            name: "Quiz form B",
-            icon: () => <ReceiptLong />
-        },
-        {
-            route: "createresult",
-            name: "Creat Result",
-            icon: () => <SortRounded />
-        },
-    ]
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+  const drawerList = [
+    {
+      route: "courseform",
+      name: "Course Form",
+      icon: () => <ListRounded />,
+    },
+    {
+      route: "quizform",
+      name: "Quiz form",
+      icon: () => <ReceiptLong />,
+    },
+    {
+      route: "quizformb",
+      name: "Quiz form B",
+      icon: () => <ReceiptLong />,
+    },
+    {
+      route: "createresult",
+      name: "Create Result",
+      icon: () => <SortRounded />,
+    },
+  ];
 
-    const drawer = (
-        <div >
-            <Toolbar />
-            <Divider />
-            <List>
-                {drawerList.map((Obj, index, { length }) => (
-                    <ListItem key={index} disablePadding onClick={() => { index === length - 1 && setOpen(s => !s) }}>
-                        <ListItemButton onClick={() => {
-                            navigate(Obj.route)
-                        }}>
-                            <ListItemIcon>
-                                {Obj.icon()}
-                            </ListItemIcon>
-                            <ListItemText primary={Obj.name} />
-                            {/* {
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {drawerList.map((Obj, index, { length }) => (
+          <ListItem
+            key={index}
+            disablePadding
+            onClick={() => {
+              index === length - 1 && setOpen((s) => !s);
+            }}
+          >
+            <ListItemButton
+              onClick={() => {
+                navigate(Obj.route);
+              }}
+            >
+              <ListItemIcon>{Obj.icon()}</ListItemIcon>
+              <ListItemText primary={Obj.name} />
+              {/* {
                                 index === length - 1 && (open ? <ExpandLess /> : <ExpandMore />)
                             } */}
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
-            </List>
-        </div>
-    );
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
-    const container =
-        window !== undefined ? () => window().document.body : undefined;
-
-    return (
-        <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
-                }}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: "none" } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Admin Panel
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Box
-                component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-                aria-label="mailbox folders"
-            >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: "block", sm: "none" },
-                        "& .MuiDrawer-paper": {
-                            boxSizing: "border-box",
-                            width: drawerWidth,
-                        },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                        display: { xs: "none", sm: "block" },
-                        "& .MuiDrawer-paper": {
-                            boxSizing: "border-box",
-                            width: drawerWidth,
-                        },
-                    }}
-                    open
-                >
-                    {drawer}
-                </Drawer>
-            </Box>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    p: 3,
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                }}
-            >
-                <Toolbar />
-                <Box>
-                    <Routes>
-                        <Route path="/" element={<Signin />} />
-                        <Route path="/" element={<Signup />} />
-                        <Route path="coursesList" element={<CoursesList />} />
-                        <Route path="courseForm" element={<CourseForm />} />
-                        <Route path="quizform" element={<QuizForm />} />
-                        <Route path="quizformb" element={<QuizFormB />} />
-                        <Route path="createresult" element={<CreateResult />} />
-                        {/* <Route path="admin/*" element={<NotFound />} /> */}
-                    </Routes>
-                </Box>
-            </Box>
+  return (
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Admin Panel
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+        <Box>
+          <Routes>
+            <Route path="/" element={<Signin />} />
+            <Route path="/" element={<Signup />} />
+            <Route path="coursesList" element={<CoursesList />} />
+            <Route path="courseForm" element={<CourseForm />} />
+            <Route path="quizform" element={<QuizForm />} />
+            <Route path="quizformb" element={<QuizFormB />} />
+            <Route path="createresult" element={<CreateResult />} />
+            {/* <Route path="admin/*" element={<NotFound />} /> */}
+          </Routes>
         </Box>
-    );
+      </Box>
+    </Box>
+  );
 }
 
 AdminPanel.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
 };
 
 export default AdminPanel;
-
-
