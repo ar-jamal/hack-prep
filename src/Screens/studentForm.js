@@ -33,9 +33,9 @@ export default function StudentForm() {
 
   const rollNumber = () => {
     countHandler();
-    const stuNamePart = filledForm.firstName.slice(0, 3)
-    const fathNamePart = filledForm.fatherName.slice(0, 3)
-    const cnicPart = filledForm.cnic.slice(0, 3)
+    const stuNamePart = filledForm.firstName?.slice(0, 3)
+    const fathNamePart = filledForm.fatherName?.slice(0, 3)
+    const cnicPart = filledForm.cnic?.slice(0, 3)
     setRollNo(`${stuNamePart}
       ${fathNamePart}
       ${filledForm.course} 

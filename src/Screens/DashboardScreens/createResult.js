@@ -11,15 +11,7 @@ function CreateResult() {
   const [filledForm, setFilledForm] = useState({});
   const [courseStatus, setCourseStatus] = useState(false);
   const [sec, setSec] = useState("")
-  // let rollNumber = () => {
-  //   resultData.map((e, i) => {
-  //     const [count, setCount] = useState(001)
-  //     return (
-  //       `${e.name.slice(0, 3)} ${count}`,
-  //       setCount(count + 1)
-  //     )
-  //   })
-  // }
+  
   const [resultData, setResultData] = useState([
     {
       name: "JAMAL KARIM",
