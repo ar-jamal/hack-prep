@@ -6,6 +6,7 @@ import CusSelect from "../utils/components/MaterialUi/cusSelect";
 import CusAlert from "../utils/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import { useSelector } from "react-redux";
 
 export default function StudentForm() {
   const [filledForm, setFilledForm] = useState({});
@@ -60,9 +61,13 @@ export default function StudentForm() {
     console.log(filledForm)
   }
 
+  const loginDetailFromReducer = useSelector((a) => a.loginReducer)
+    console.log(loginDetailFromReducer)
+
   return (
     <div className="Layout">
-      <h2 style={{ marginBlock: "4%", fontSize: 28 }}>REGISTRATION FORM</h2>
+      <h2 style={{ marginBlock: "4%", fontSize: 28 }}>{loginDetailFromReducer.userName}</h2>
+      {/* <h2 style={{ marginBlock: "4%", fontSize: 28 }}>REGISTRATION FORM</h2> */}
       <div className="Body">
         <Grid container columnSpacing={3} /* columns={12} */>
           <Grid item xs={4}>
