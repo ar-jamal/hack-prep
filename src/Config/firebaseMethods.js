@@ -9,7 +9,7 @@ const signupUser = (Arg) => {
     const { email, password, userName, category } = Arg
     return new Promise((resolve, reject) => {
         // console.log(email)
-        createUserWithEmailAndPassword(auth, email, password, )
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 const reference = ref(db, `users/${user.uid}`)
@@ -24,7 +24,6 @@ const signupUser = (Arg) => {
             .catch((err) => {
                 reject(err)
             })
-
     })
 }
 const signinUser = (obj) => {

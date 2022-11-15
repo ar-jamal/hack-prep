@@ -10,6 +10,7 @@ import CusTable from "../../utils/components/MaterialUi/cusTable";
 function CreateResult() {
   const [filledForm, setFilledForm] = useState({});
   const [courseStatus, setCourseStatus] = useState(false);
+  const [sec, setSec] = useState("")
   // let rollNumber = () => {
   //   resultData.map((e, i) => {
   //     const [count, setCount] = useState(001)
@@ -22,13 +23,13 @@ function CreateResult() {
   const [resultData, setResultData] = useState([
     {
       name: "JAMAL KARIM",
-      rollNum:  `JAM001` ,
+      rollNum: `JAM001`,
       marks: 60,
       result: "Pass",
     },
     {
       name: "SALMAN KARIM",
-      rollNum:  `SAM002` ,
+      rollNum: `SAM002`,
       marks: 65,
       result: "Pass",
     },
@@ -88,6 +89,12 @@ function CreateResult() {
       });
   };
 
+  const onSecChangeHandler = (key, val) => {
+    setSec(val);
+    filledForm[key] = val;
+    setFilledForm({ ...filledForm });
+  };
+
   const getResultData = () => {
     getData("results")
       .then((res) => {
@@ -105,7 +112,7 @@ function CreateResult() {
 
   return (
     <div sx={{ width: { sm: `calc(100% - 420px)` } }}>
-      <h1 style= {{textAlign: "center", marginBottom: "10%"}}>Create Result</h1>
+      <h1 style={{ textAlign: "center", marginBottom: "10%" }}>Create Result</h1>
       <Box sx={{ paddingInline: 20 }}>
         <Grid spacing={4} container>
           <Grid md={12} item>
@@ -113,6 +120,27 @@ function CreateResult() {
               value={courseStatus}
               onChange={(e) => setCourseStatus(e.target.checked)}
               label="Course"
+            />
+          </Grid>
+          <Grid md={12} item>
+            <CusSelect
+              label="Sec *"
+              onChange={(e) => onSecChangeHandler("sec", e.target.value)}
+              value={sec}
+              dataSource={[
+                {
+                  id: "a",
+                  fullName: "A",
+                },
+                {
+                  id: "b",
+                  fullName: "B",
+                },
+                {
+                  id: "c",
+                  fullName: "C",
+                },
+              ]}
             />
           </Grid>
           <Grid md={12} item>
@@ -141,8 +169,8 @@ function CreateResult() {
           </Grid>
           <Grid item md={12}>
             <Box>
-              <CusTable/>
-             
+              <CusTable />
+
             </Box>
           </Grid>
           <Grid md={6} item>

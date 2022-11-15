@@ -10,20 +10,11 @@ import CusInput from "../utils/components/MaterialUi/cusInput";
 
 function ResultScreen() {
   const [filledForm, setFilledForm] = useState({});
-
-  const onSecChangeHandler = (key, val) => {
-    setSec(val);
-    filledForm[key] = val;
-    setFilledForm({ ...filledForm });
-  };
-
-  const onSubmitHandler = () => {
-    filledForm.registrationDate = new Date().toISOString().slice(0, 10);
-    filledForm.isFeeSubmitted = false;
-    filledForm.isApproved = false;
-    filledForm.isActive = false;
-    console.log(filledForm);
-  };
+  const [sec, setSec] = useState("")
+  const [courseStatus, setCourseStatus] = useState(false)
+  const [resultTableData, setResultTableData] = useState([]);
+  const [loader, setLoader] = useState(false);
+  const [rollNumber, setRollNumber] = useState("")
 
   const [resultData, setResultData] = useState([
     {
@@ -75,8 +66,12 @@ function ResultScreen() {
       result: "Pass",
     },
   ]);
-  const [resultTableData, setResultTableData] = useState([]);
-  const [loader, setLoader] = useState(false);
+
+  const onSecChangeHandler = (key, val) => {
+    setSec(val);
+    filledForm[key] = val;
+    setFilledForm({ ...filledForm });
+  };
 
   const onSubmitHandler = () => {
     setLoader(true);
@@ -166,7 +161,7 @@ function ResultScreen() {
           <Grid item md={12}>
             <CusInput
               label="Roll number *"
-              onChange={(e) => inputChangeHandler("rollNumber", e.target.value)}
+              onChange={(e) => setRollNumber(e.target.value)}
             />
           </Grid>
           <Grid item md={12}>

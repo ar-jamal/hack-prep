@@ -6,8 +6,10 @@ import CusSelect from "../utils/components/MaterialUi/cusSelect";
 import CusAlert from "../utils/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import { set } from "firebase/database";
 
 export default function StudentForm() {
+  const [formData, setFormData] = useState([])
   const [filledForm, setFilledForm] = useState({});
   const [course, setCourse] = useState("");
   const [sec, setSec] = useState("");
@@ -15,6 +17,32 @@ export default function StudentForm() {
   const [age, setAge] = useState("");
   const [agedisabled, setAgedisabled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [count, setCount] = useState(0)
+  const [fig, setFig] = useState("00")
+  const [rollNo, setRollNo] = useState("")
+
+  const countHandler = () => {
+    setCount((formData.length + 1).toString())
+    if (count.length > 1) {
+      setFig("0")
+    } else if (count.length > 2) {
+      setFig("")
+    }
+    fig.concat(count)
+  }
+
+  const rollNumber = () => {
+    countHandler();
+    const stuNamePart = filledForm.firstName.slice(0, 3)
+    const fathNamePart = filledForm.fatherName.slice(0, 3)
+    const cnicPart = filledForm.cnic.slice(0, 3)
+    setRollNo(`${stuNamePart}
+      ${fathNamePart}
+      ${filledForm.course} 
+      ${filledForm.sec}
+      ${cnicPart}
+      ${fig}`)
+  }
 
   const inputChangeHandler = (key, val) => {
     filledForm[key] = val;
@@ -52,11 +80,15 @@ export default function StudentForm() {
   };
 
   const onSubmitHandler = () => {
+    console.log(formData.length)
+    rollNumber();
+    filledForm.rollNumber = rollNo
     filledForm.registrationDate = new Date().toISOString().slice(0, 10)
     filledForm.isFeeSubmitted = false
     filledForm.isApproved = false
     filledForm.isActive = false
-    console.log(filledForm)
+    formData.push(filledForm)
+    console.log(formData)
   }
 
   return (
@@ -122,7 +154,7 @@ export default function StudentForm() {
             <CusInput
               required={true}
               label="CNIC"
-              onChange={(e) => inputChangeHandler("CNIC", e.target.value)}
+              onChange={(e) => inputChangeHandler("cnic", e.target.value)}
             />
           </Grid>
           <Grid item xs={6}>
