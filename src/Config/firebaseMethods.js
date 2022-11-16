@@ -54,7 +54,7 @@ const logout = () => {
     signOut(auth)
 }
 
-let sendData = (obj, nodeName, id) => {
+const sendData = (obj, nodeName, id) => {
     let postListRef;
 
     return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ let sendData = (obj, nodeName, id) => {
     });
 };
 
-let getData = (nodeName, id) => {
+const getData = (nodeName, id) => {
     let reference = ref(db, `${nodeName}/${id ? id : ""}`);
     return new Promise((resolve, reject) => {
         onValue(

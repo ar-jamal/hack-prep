@@ -20,6 +20,8 @@ export default function StudentForm() {
   const [count, setCount] = useState(0)
   const [fig, setFig] = useState("00")
   const [rollNo, setRollNo] = useState("")
+  const [alertTitle, setAlertTitle] = useState("")
+  const [alertMessage, setAlertMessage] = useState("")
 
   const countHandler = () => {
     setCount((formData.length + 1).toString())
@@ -28,20 +30,18 @@ export default function StudentForm() {
     } else if (count.length > 2) {
       setFig("")
     }
-    fig.concat(count)
+    console.log(count)
+    let figCount= fig.concat(count)
+    return figCount
   }
 
-  const rollNumber = () => {
-    countHandler();
-    const stuNamePart = filledForm.firstName?.slice(0, 3)
-    const fathNamePart = filledForm.fatherName?.slice(0, 3)
-    const cnicPart = filledForm.cnic?.slice(0, 3)
-    setRollNo(`${stuNamePart}
-      ${fathNamePart}
-      ${filledForm.course} 
-      ${filledForm.sec}
-      ${cnicPart}
-      ${fig}`)
+  const generateStudentId = () => {
+    const figCount= countHandler();
+    const stuNamePart = filledForm.firstName?.slice(0, 3) ?? ''
+    const fathNamePart = filledForm.fatherName?.slice(0, 3) ?? ''
+    const cnicPart = filledForm.cnic?.slice(-3) ??''
+   
+    return   stuNamePart + fathNamePart + filledForm.course + filledForm.sec + cnicPart + figCount
   }
 
   const inputChangeHandler = (key, val) => {
@@ -79,16 +79,17 @@ export default function StudentForm() {
     // return <CusAlert open={open} onClose={onAlertClose} />
   };
 
-  const onSubmitHandler = () => {
+  async function onSubmitHandler  () {
     console.log(formData.length)
-    rollNumber();
-    filledForm.rollNumber = rollNo
+    // await rollNumber();
+    filledForm.rollNumber = generateStudentId()
     filledForm.registrationDate = new Date().toISOString().slice(0, 10)
     filledForm.isFeeSubmitted = false
     filledForm.isApproved = false
     filledForm.isActive = false
     formData.push(filledForm)
     console.log(formData)
+
   }
 
   return (
@@ -211,7 +212,10 @@ export default function StudentForm() {
               placeholder={age ? age.toString() : "Age"}
               onClick={ageDisabledHandler}
               disabled={agedisabled}
-              value={!!age && age > 0 ? age : "Plz select back date for date of birth"}
+              value={!!age && age > 0 ? age : "Plz select back date for date of birth"
+                // () => {setAlertTitle("Plz select back date for date of birth");
+                // setOpen(true)}
+              }
               open={open}
               onClose={onAlertClose}
               alertTitle="Date of Birth required only"
