@@ -160,6 +160,12 @@ function ResultScreen() {
           </Grid>
           <Grid item md={12}>
             <CusInput
+              label="CNIC *"
+              onChange={(e) => setRollNumber(e.target.value)}
+            />
+          </Grid>
+          <Grid item md={12}>
+            <CusInput
               label="Roll number *"
               onChange={(e) => setRollNumber(e.target.value)}
             />

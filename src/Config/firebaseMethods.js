@@ -63,11 +63,16 @@ const sendData = (obj, nodeName, id) => {
         } else {
             let addRef = ref(db, nodeName);
             obj.id = push(addRef).key;
+            console.log(push(ref(db, nodeName)))
             postListRef = ref(db, `${nodeName}/${obj.id}`);
         }
         set(postListRef, obj)
             .then(() => {
-                resolve(`Data Send Successfully with this node ${nodeName}/${obj.id}`);
+                resolve({
+                    obj: obj,
+                    // nodeId: obj.id,
+                    message: `Data Send Successfully with this node ${nodeName}/${obj.id}`
+                });
             })
             .catch((err) => {
                 reject(err);

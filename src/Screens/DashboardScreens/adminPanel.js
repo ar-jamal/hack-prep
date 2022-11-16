@@ -33,6 +33,7 @@ import Signin from "../singin";
 import Signup from "../signup";
 import QuizFormB from "./quizFormB";
 import CreateResult from "./createResult"
+import FormControl from "./formControl";
 const drawerWidth = 240;
 
 function AdminPanel({ data, ...props }) {
@@ -180,6 +181,7 @@ function AdminPanel({ data, ...props }) {
             <Route path="quizform" element={<QuizForm />} />
             <Route path="quizformb" element={<QuizFormB />} />
             <Route path="createresult" element={<CreateResult />} />
+            <Route path="formcontrol" element={<FormControl />} />
             {/* <Route path="admin/*" element={<NotFound />} /> */}
           </Routes>
         </Box>

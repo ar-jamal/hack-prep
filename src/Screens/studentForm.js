@@ -7,6 +7,7 @@ import CusAlert from "../utils/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { set } from "firebase/database";
+import { sendData } from "../Config/firebaseMethods";
 
 export default function StudentForm() {
   const [formData, setFormData] = useState([])
@@ -15,13 +16,14 @@ export default function StudentForm() {
   const [sec, setSec] = useState("");
   const [dateValue, setDateValue] = useState(null);
   const [age, setAge] = useState("");
-  const [agedisabled, setAgedisabled] = useState(false);
+  const [ageDisabled, setAgeDisabled] = useState(false);
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0)
   const [fig, setFig] = useState("00")
   const [rollNo, setRollNo] = useState("")
   const [alertTitle, setAlertTitle] = useState("")
   const [alertMessage, setAlertMessage] = useState("")
+  const [nodeId, setNodeId] = useState("")
 
   const countHandler = () => {
     setCount((formData.length + 1).toString())
@@ -31,17 +33,17 @@ export default function StudentForm() {
       setFig("")
     }
     console.log(count)
-    let figCount= fig.concat(count)
+    let figCount = fig.concat(count)
     return figCount
   }
 
   const generateStudentId = () => {
-    const figCount= countHandler();
+    const figCount = countHandler();
     const stuNamePart = filledForm.firstName?.slice(0, 3) ?? ''
     const fathNamePart = filledForm.fatherName?.slice(0, 3) ?? ''
-    const cnicPart = filledForm.cnic?.slice(-3) ??''
-   
-    return   stuNamePart + fathNamePart + filledForm.course + filledForm.sec + cnicPart + figCount
+    const cnicPart = filledForm.cnic?.slice(-3) ?? ''
+
+    return stuNamePart + fathNamePart + filledForm.course + filledForm.sec.toUpperCase() + cnicPart + figCount
   }
 
   const inputChangeHandler = (key, val) => {
@@ -71,15 +73,22 @@ export default function StudentForm() {
   };
   const onAlertClose = () => {
     setOpen(false);
-    setAgedisabled(false);
+    setAgeDisabled(false);
   };
   const ageDisabledHandler = () => {
-    setAgedisabled(true);
+    setAgeDisabled(true);
     setOpen(true);
     // return <CusAlert open={open} onClose={onAlertClose} />
   };
+  // const alertStatements = (Title, Message) => {
+  //   setAlertTitle(Title)
+  //   setAlertMessage(Message)
+  //   return (
+  //     alertTitle || alertMessage
+  //   )
+  // }
 
-  async function onSubmitHandler  () {
+  async function onSubmitHandler() {
     console.log(formData.length)
     // await rollNumber();
     filledForm.rollNumber = generateStudentId()
@@ -89,7 +98,18 @@ export default function StudentForm() {
     filledForm.isActive = false
     formData.push(filledForm)
     console.log(formData)
-
+    sendData(formData, "Student", nodeId)
+      .then((success) => {
+        setAlertTitle(success.message);
+        setAlertMessage("")
+        setOpen(true)
+        // setNodeId(success.nodeId)
+        console.log(success.obj)
+      })
+      .then((err) => {
+        setAlertTitle(err)
+      })
+      
   }
 
   return (
@@ -163,7 +183,7 @@ export default function StudentForm() {
               required={true}
               label="Father Name"
               onChange={(e) =>
-                inputChangeHandler("Father Name", e.target.value)
+                inputChangeHandler("fatherName", e.target.value)
               }
             />
           </Grid>
@@ -171,7 +191,7 @@ export default function StudentForm() {
             <CusInput
               label="Father CNIC"
               onChange={(e) =>
-                inputChangeHandler("Father CNIC", e.target.value)
+                inputChangeHandler("fatherCNIC", e.target.value)
               }
             />
           </Grid>
@@ -180,7 +200,7 @@ export default function StudentForm() {
               required={true}
               label="Father Contact"
               onChange={(e) =>
-                inputChangeHandler("Father Contact", e.target.value)
+                inputChangeHandler("fatherContact", e.target.value)
               }
             />
           </Grid>
@@ -189,7 +209,7 @@ export default function StudentForm() {
               required={true}
               label="Emergency Contact"
               onChange={(e) =>
-                inputChangeHandler("Emergency Contact", e.target.value)
+                inputChangeHandler("emergencyContact", e.target.value)
               }
             />
           </Grid>
@@ -211,7 +231,7 @@ export default function StudentForm() {
               label="Age"
               placeholder={age ? age.toString() : "Age"}
               onClick={ageDisabledHandler}
-              disabled={agedisabled}
+              disabled={ageDisabled}
               value={!!age && age > 0 ? age : "Plz select back date for date of birth"
                 // () => {setAlertTitle("Plz select back date for date of birth");
                 // setOpen(true)}
