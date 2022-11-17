@@ -65,6 +65,11 @@ function AdminPanel({ data, ...props }) {
       name: "Create Result",
       icon: () => <SortRounded />,
     },
+    {
+      route: "formcontrol",
+      name: "Registeration-form Control ",
+      icon: () => <SortRounded />,
+    },
   ];
 
   const drawer = (
