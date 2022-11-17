@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { set } from "firebase/database";
 import { sendData } from "../Config/firebaseMethods";
+import { Password } from "@mui/icons-material";
 
 export default function StudentForm() {
   const [formData, setFormData] = useState([])
@@ -24,6 +25,18 @@ export default function StudentForm() {
   const [alertTitle, setAlertTitle] = useState("")
   const [alertMessage, setAlertMessage] = useState("")
   const [nodeId, setNodeId] = useState("")
+
+  const isReqField =
+    filledForm.firstName &&
+    filledForm.constact &&
+    filledForm.email &&
+    filledForm.password &&
+    filledForm.course &&
+    filledForm.sec &&
+    filledForm.cnic &&
+    filledForm.fatherName &&
+    filledForm.fatherContact &&
+    filledForm.emergencyContact;
 
   const countHandler = () => {
     setCount((formData.length + 1).toString())
@@ -57,10 +70,16 @@ export default function StudentForm() {
     const miliSec = Date.parse(curDate) - Date.parse(`${formattedDate}`);
     const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365)) || "";
     setAge(year);
-
-    filledForm["date"] = val;
-    setFilledForm({ ...filledForm });
-  };
+    if (age <= 0) {
+      setAlertTitle("incorrect date")
+      setAlertMessage("Plz select back date in Date of birth field")
+      setOpen(true)
+      return
+    } else {
+      filledForm[key] = val;
+      setFilledForm({ ...filledForm });
+    }
+  }
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
     filledForm[key] = val;
@@ -74,23 +93,28 @@ export default function StudentForm() {
   const onAlertClose = () => {
     setOpen(false);
     setAgeDisabled(false);
+    setAlertTitle("")
+    setAlertMessage("")
   };
   const ageDisabledHandler = () => {
     setAgeDisabled(true);
+    setAlertTitle("Date of Birth required only")
+    setAlertMessage("Age will be calculated on it")
     setOpen(true);
-    // return <CusAlert open={open} onClose={onAlertClose} />
   };
-  // const alertStatements = (Title, Message) => {
-  //   setAlertTitle(Title)
-  //   setAlertMessage(Message)
-  //   return (
-  //     alertTitle || alertMessage
-  //   )
-  // }
 
-  async function onSubmitHandler() {
-    console.log(formData.length)
-    // await rollNumber();
+  const onSubmitHandler = () => {
+    console.log(filledForm.fatherName)
+    console.log(formData.length);
+    if (age <= 0) {
+      setOpen(true)
+      return
+    } else if (!!isReqField) {
+      setAlertTitle("Required field error")
+      setAlertMessage("Plz must fill all required fields")
+      setOpen(true)
+      return
+    }
     filledForm.rollNumber = generateStudentId()
     filledForm.registrationDate = new Date().toISOString().slice(0, 10)
     filledForm.isFeeSubmitted = false
@@ -109,7 +133,7 @@ export default function StudentForm() {
       .then((err) => {
         setAlertTitle(err)
       })
-      
+
   }
 
   return (
@@ -135,6 +159,21 @@ export default function StudentForm() {
               required={true}
               label="Contact"
               onChange={(e) => inputChangeHandler("contact", e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <CusInput
+              required={true}
+              label="Email"
+              onChange={(e) => inputChangeHandler("email", e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <CusInput
+              required={true}
+              label="Password"
+              type="Password"
+              onChange={(e) => inputChangeHandler("password", e.target.value)}
             />
           </Grid>
           <Grid item xs={8}>
@@ -219,7 +258,7 @@ export default function StudentForm() {
               label="Date of Birth"
               type="date"
               // defaultValue={new Date().toISOSting()}
-              onChange={(e) => dateChangeHandler("Date", e.target.value)}
+              onChange={(e) => dateChangeHandler("date", e.target.value)}
               sx={{ width: "100%" }}
               InputLabelProps={{
                 shrink: true,
@@ -232,14 +271,11 @@ export default function StudentForm() {
               placeholder={age ? age.toString() : "Age"}
               onClick={ageDisabledHandler}
               disabled={ageDisabled}
-              value={!!age && age > 0 ? age : "Plz select back date for date of birth"
-                // () => {setAlertTitle("Plz select back date for date of birth");
-                // setOpen(true)}
-              }
+              value={age}
               open={open}
               onClose={onAlertClose}
-              alertTitle="Date of Birth required only"
-              alertMessage="Age will be calculated on it"
+              alertTitle={alertTitle? alertTitle : ""}
+              alertMessage={alertMessage? alertMessage : ""}
             />
           </Grid>
         </Grid>

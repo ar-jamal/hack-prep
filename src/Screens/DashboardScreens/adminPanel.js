@@ -204,3 +204,4 @@ AdminPanel.propTypes = {
 };
 
 export default AdminPanel;
+export {drawerWidth}

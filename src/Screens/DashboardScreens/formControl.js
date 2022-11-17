@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import CusAlert from "../../utils/components/MaterialUi/cusAlert";
 import CusSwitch from "../../utils/components/MaterialUi/cusSwitch";
 import { sendData } from "../../Config/firebaseMethods";
+import { drawerWidth } from "./adminPanel";
 
 export default function FormControl() {
   const [formData, setFormData] = useState([])
@@ -36,10 +37,11 @@ export default function FormControl() {
     setFilledForm({ ...filledForm });
     // console.log(filledForm);
   };
+  
+  
 
   async function onSubmitHandler() {
-    console.log(formData.length)
-    // await rollNumber();
+    // console.log(formData.length)
     filledForm.registrationDate = new Date().toISOString().slice(0, 10)
     filledForm.isFeeSubmitted = false
     filledForm.isApproved = false
@@ -52,16 +54,21 @@ export default function FormControl() {
         setAlertMessage("")
         setOpen(true)
         // setNodeId(success.nodeId)
-        console.log(success.obj)
+        // console.log(success.obj)
       })
       .then((err) => {
         setAlertTitle(err)
       })
-
   }
 
   return (
-    <div style={{ width: { sm: `calc(100% - 420px)` }, display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{
+      width: { sm: `calc(100% - ${drawerWidth}px)` },
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      backgroundColor: "yellowgreen"
+    }}>
       <h2 style={{ marginBlock: "4%", fontSize: 28, /* textAlign: "center" */ }}>
         FORM CONTROL
       </h2>
