@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../Config/firebaseMethods";
-import RadioGroupForm from "../utils/components/MaterialUi/radioGroup";
+import RadioGroupForm from "../Config/components/MaterialUi/radioGroup";
 
 export default function Signup() {
     const navigate = useNavigate();

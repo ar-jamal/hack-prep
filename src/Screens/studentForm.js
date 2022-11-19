@@ -1,9 +1,9 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../utils/components/MaterialUi/cusInput";
-import CusSelect from "../utils/components/MaterialUi/cusSelect";
-import CusAlert from "../utils/components/MaterialUi/cusAlert";
+import CusInput from "../Config/components/MaterialUi/cusInput";
+import CusSelect from "../Config/components/MaterialUi/cusSelect";
+import CusAlert from "../Config/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { set } from "firebase/database";
@@ -28,16 +28,16 @@ export default function StudentForm() {
   const [nodeId, setNodeId] = useState("");
 
   const isReqField =
-    !filledForm.firstName ||
-    !filledForm.constact ||
-    !filledForm.email ||
-    !filledForm.password ||
-    !filledForm.course ||
-    !filledForm.sec ||
-    !filledForm.cnic ||
-    !filledForm.fatherName ||
-    !filledForm.fatherContact ||
-    !filledForm.emergencyContact;
+    !(filledForm.firstName) ||
+    !(filledForm.constact) ||
+    !(filledForm.email) ||
+    !(filledForm.password) ||
+    !(filledForm.course) ||
+    !(filledForm.sec) ||
+    !(filledForm.cnic) ||
+    !(filledForm.fatherName) ||
+    !(filledForm.fatherContact) ||
+    !(filledForm.emergencyContact);
 
   const countHandler = () => {
     setCount((formData.length + 1).toString());
@@ -81,7 +81,7 @@ export default function StudentForm() {
     console.log(age);
   }
   const ageUpdated = () => {
-    if (!!age && age <= 0) {
+    if (!!age && age < 1) {
       setAlertTitle("incorrect date");
       setAlertMessage("Plz select back date in Date of birth field");
       setOpen(true);
@@ -121,11 +121,11 @@ export default function StudentForm() {
 
   const onSubmitHandler = () => {
     console.log(isReqField);
-    // console.log(formData.length);
-    if (!!age && age <= 0) {
+    console.log(filledForm);
+    if (!!age && age < 1) {
       setOpen(true);
       return;
-    } else if (!isReqField) {
+    } else if (isReqField) {
       setAlertTitle("Required field error");
       setAlertMessage("Plz must fill all req fields");
       setOpen(!!alertTitle && alertMessage ? true : false);

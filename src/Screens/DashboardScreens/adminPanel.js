@@ -32,7 +32,7 @@ import CoursesList from "./listOfCourses";
 import Signin from "../singin";
 import Signup from "../signup";
 import QuizFormB from "./quizFormB";
-import CreateResult from "./createResult"
+import CreateResult from "./createResult";
 import FormControl from "./formControl";
 const drawerWidth = 240;
 
@@ -53,11 +53,6 @@ function AdminPanel({ data, ...props }) {
     {
       route: "quizform",
       name: "Quiz form",
-      icon: () => <ReceiptLong />,
-    },
-    {
-      route: "quizformb",
-      name: "Quiz form B",
       icon: () => <ReceiptLong />,
     },
     {
@@ -184,7 +179,6 @@ function AdminPanel({ data, ...props }) {
             <Route path="coursesList" element={<CoursesList />} />
             <Route path="courseForm" element={<CourseForm />} />
             <Route path="quizform" element={<QuizForm />} />
-            <Route path="quizformb" element={<QuizFormB />} />
             <Route path="createresult" element={<CreateResult />} />
             <Route path="formcontrol" element={<FormControl />} />
             {/* <Route path="admin/*" element={<NotFound />} /> */}
@@ -204,4 +198,4 @@ AdminPanel.propTypes = {
 };
 
 export default AdminPanel;
-export {drawerWidth}
+export { drawerWidth };

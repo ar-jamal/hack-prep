@@ -1,13 +1,13 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../utils/components/MaterialUi/cusInput";
-import CusSelect from "../../utils/components/MaterialUi/cusSelect";
+import CusInput from "../../Config/components/MaterialUi/cusInput";
+import CusSelect from "../../Config/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AlertDialog from "../../utils/components/MaterialUi/cusAlert";
+import AlertDialog from "../../Config/components/MaterialUi/cusAlert";
 import { sendData } from "../../Config/firebaseMethods";
-import CusAlert from "../../utils/components/MaterialUi/cusAlert";
+import CusAlert from "../../Config/components/MaterialUi/cusAlert";
 // import { map } from "@firebase/util";
 
 export default function QuizForm() {

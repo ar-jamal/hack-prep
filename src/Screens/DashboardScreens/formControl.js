@@ -1,12 +1,12 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../utils/components/MaterialUi/cusInput";
-import CusSelect from "../../utils/components/MaterialUi/cusSelect";
+import CusInput from "../../Config/components/MaterialUi/cusInput";
+import CusSelect from "../../Config/components/MaterialUi/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../utils/components/MaterialUi/cusAlert";
-import CusSwitch from "../../utils/components/MaterialUi/cusSwitch";
+import CusAlert from "../../Config/components/MaterialUi/cusAlert";
+import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
 import { sendData } from "../../Config/firebaseMethods";
 import { drawerWidth } from "./adminPanel";
 
@@ -67,7 +67,7 @@ export default function FormControl() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      backgroundColor: "yellowgreen"
+      // backgroundColor: "yellowgreen"
     }}>
       <h2 style={{ marginBlock: "4%", fontSize: 28, /* textAlign: "center" */ }}>
         FORM CONTROL
@@ -193,7 +193,6 @@ export default function FormControl() {
                 variant="contained"
                 style={{
                   minWidth: "15%",
-                  // alignSelf: "flex-end",
                   marginBlock: 20,
                   fontSize: 18,
                 }}

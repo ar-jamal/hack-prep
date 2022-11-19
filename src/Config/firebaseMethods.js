@@ -1,5 +1,5 @@
 import app from "./firebaseConfig";
-import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
 // import { Password } from "@mui/icons-material";
@@ -54,6 +54,24 @@ const logout = () => {
     signOut(auth)
 }
 
+const checkUser = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        resolve(uid);
+        // ...
+      } else {
+        reject("no user Login");
+        // User is signed out
+        // ...
+      }
+    });
+  });
+};
+
 const sendData = (obj, nodeName, id) => {
     let postListRef;
 
@@ -106,4 +124,4 @@ const getData = (nodeName, id) => {
     });
 };
 
-export { signupUser, signinUser, logout, sendData, getData };
+export { signupUser, signinUser, logout, sendData, getData, checkUser };

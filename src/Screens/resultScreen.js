@@ -1,12 +1,12 @@
 import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusSelect from "../utils/components/MaterialUi/cusSelect";
-import CusAlert from "../utils/components/MaterialUi/cusAlert";
-import CusSwitch from "../utils/components/MaterialUi/cusSwitch";
+import CusSelect from "../Config/components/MaterialUi/cusSelect";
+import CusAlert from "../Config/components/MaterialUi/cusAlert";
+import CusSwitch from "../Config/components/MaterialUi/cusSwitch";
 import { getData, sendData } from "../Config/firebaseMethods";
-import CusTable from "../utils/components/MaterialUi/cusTable";
-import CusInput from "../utils/components/MaterialUi/cusInput";
+import CusTable from "../Config/components/MaterialUi/cusTable";
+import CusInput from "../Config/components/MaterialUi/cusInput";
 
 function ResultScreen() {
   const [filledForm, setFilledForm] = useState({});
