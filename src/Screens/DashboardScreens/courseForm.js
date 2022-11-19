@@ -19,15 +19,6 @@ export default function CourseForm() {
   const [checked, setChecked] = useState(false)
   console.log(checked);
 
-  const getCoursesList = () => {
-
-  }
-
-  useEffect(() => {
-
-
-  })
-
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
     filledForm[key] = val;

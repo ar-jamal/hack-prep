@@ -11,7 +11,7 @@ import { sendData } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
 import CusButton from "../Config/components/cusButton";
-
+import blueSpinner from "../Utils/Gif/blueSpinner.gif"
 
 export default function StudentForm() {
   const [loader, setLoader] = useState(false)
@@ -29,6 +29,11 @@ export default function StudentForm() {
   const [alertTitle, setAlertTitle] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const [nodeId, setNodeId] = useState("");
+
+  const loaderHandler = 
+    <img
+      style={{ width: "200px", alignSelf: "center" }}
+      src={blueSpinner} />
 
   const isReqField =
     (filledForm.firstName) &&
@@ -75,12 +80,8 @@ export default function StudentForm() {
     setFilledForm({ ...filledForm });
   };
   async function dateChangeHandler(key, val) {
-    const dateString = val;
-    const formattedDate = new Date(dateString).toString().slice(4, 15);
-    const curDate = new Date().toDateString().slice(4, 15);
-    const miliSec = Date.parse(curDate) - Date.parse(`${formattedDate}`);
-    const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365) && "");
-    setAge(year);
+
+    setAge(val);
     console.log(age);
   }
   const ageUpdated = () => {
@@ -143,7 +144,8 @@ export default function StudentForm() {
       formData.push(filledForm);
       console.log(formData);
       sendData(formData, "Student", nodeId)
-        .then((success) => {
+      .then((success) => {
+          console.log(success)
           setAlertTitle(success.message);
           setAlertMessage("");
           setLoader(false)
@@ -160,8 +162,17 @@ export default function StudentForm() {
     }
   };
 
-  return (
-    <div className="Layout">
+  let myAge = 0 
+  if(age ){
+    // const dateString = age.toString();
+    // const formattedDate = new Date(dateString).toString().slice(4, 15);
+    
+    const miliSec = Date.now() - new Date(age).getTime();
+    console.log(miliSec)
+    myAge = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365));
+  }
+  return ( loader? loaderHandler 
+    : <div className="Layout">
       <h2 style={{ marginBlock: "4%", fontSize: 28 }}>REGISTRATION FORM</h2>
       <div className="Body">
         <Grid container columnSpacing={3} /* columns={12} */>
@@ -277,6 +288,7 @@ export default function StudentForm() {
               id="date"
               label="Date of Birth"
               type="date"
+              value={age}
               // defaultValue={new Date().toISOSting()}
               onChange={(e) => dateChangeHandler("date", e.target.value)}
               shrink={true}
@@ -286,10 +298,10 @@ export default function StudentForm() {
           <Grid item xs={8}>
             <CusAlert
               label="Age"
-              placeholder={age ? age.toString() : "Age"}
+              placeholder={myAge ? myAge.toString() : "Age"}
               onClick={ageDisabledHandler}
               disabled={ageDisabled}
-              value={age}
+              value={myAge}
               open={open}
               onClose={onAlertClose}
               alertTitle={alertTitle ? alertTitle : ""}

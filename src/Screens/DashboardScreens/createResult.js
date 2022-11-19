@@ -6,6 +6,7 @@ import CusAlert from "../../Config/components/MaterialUi/cusAlert";
 import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
 import { getData, sendData } from "../../Config/firebaseMethods";
 import CusTable from "../../cusTable";
+import CusChip from "../../Config/components/CusChip";
 
 function CreateResult() {
   const [filledForm, setFilledForm] = useState({});
@@ -68,6 +69,7 @@ function CreateResult() {
   const [loader, setLoader] = useState(false);
 
   const onSubmitHandler = () => {
+    console.log(Object.keys(resultData[0]))
     setLoader(true);
     filledForm.isShowResult = courseStatus;
     filledForm.result = resultData;
@@ -84,6 +86,7 @@ function CreateResult() {
   };
 
   const onSecChangeHandler = (key, val) => {
+    console.log(Object.keys(resultData[0]))
     setSec(val);
     filledForm[key] = val;
     setFilledForm({ ...filledForm });
@@ -160,6 +163,9 @@ function CreateResult() {
                 }
               ]}
             />
+          </Grid>
+          <Grid md={12} item>
+          <CusChip />
           </Grid>
           <Grid item md={12}>
             <Box>

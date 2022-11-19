@@ -7,7 +7,7 @@ import blueSpinner from "../../Utils/Gif/blueSpinner.gif"
 export default function CusButton(props) {
   const { onClick, variant, title, style, width, marginBlock, alignSelf, loader, backgrounColor } = props;
 
-  const loaderHandler =
+  const loaderHandler = 
     <img
       style={{ width: "20px" }}
       src={blueSpinner} />
