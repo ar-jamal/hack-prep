@@ -5,22 +5,29 @@ import { pink } from '@mui/material/colors';
 import colors from "../../../Utils/colors";
 import { useState } from "react";
 
+const colorChange = () => {
+  setColor(colors.switchColorOff)
+  return color
+}
 
-const ColoredSwitch = styled(Switch)(({ theme }) => ({
-
-  '& .MuiSwitch-switchBase.Mui-checked': {
-    color: colors.switchColorOn,
-    '&:hover': {
-      backgroundColor: ""
-    },
-  },
-  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-    backgroundColor: colors.switchColorOn,
-  },
-}));
 
 function CusSwitch(props) {
-  const { label, onChange,  } = props;
+  const { label, onChange, checked = { checked } } = props;
+  const [color, setColor] = useState(colors.switchColorOn)
+  const ColoredSwitch = styled(Switch)(({ theme }) => ({
+
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: color,
+      '&:hover': {
+        backgroundColor: ""
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: color,
+    },
+  }));
+
+
   return (
     <FormControlLabel control={
       <ColoredSwitch

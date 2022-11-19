@@ -5,7 +5,7 @@ import CusSelect from "../../Config/components/MaterialUi/cusSelect";
 import CusAlert from "../../Config/components/MaterialUi/cusAlert";
 import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
 import { getData, sendData } from "../../Config/firebaseMethods";
-import CusTable from "../../Config/components/MaterialUi/cusTable";
+import CusTable from "../../cusTable";
 
 function CreateResult() {
   const [filledForm, setFilledForm] = useState({});

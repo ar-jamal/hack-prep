@@ -1,17 +1,20 @@
 import "../App.css";
 import { useEffect, useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import CusInput from "../Config/components/MaterialUi/cusInput";
+import CusDateInput from "../Config/components/MaterialUi/cusInput";
 import CusSelect from "../Config/components/MaterialUi/cusSelect";
 import CusAlert from "../Config/components/MaterialUi/cusAlert";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import { set } from "firebase/database";
 import { sendData } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
+import CusButton from "../Config/components/cusButton";
+
 
 export default function StudentForm() {
+  const [loader, setLoader] = useState(false)
   const [formData, setFormData] = useState([]);
   const [filledForm, setFilledForm] = useState({});
   const [course, setCourse] = useState("");
@@ -28,16 +31,16 @@ export default function StudentForm() {
   const [nodeId, setNodeId] = useState("");
 
   const isReqField =
-    !(filledForm.firstName) ||
-    !(filledForm.constact) ||
-    !(filledForm.email) ||
-    !(filledForm.password) ||
-    !(filledForm.course) ||
-    !(filledForm.sec) ||
-    !(filledForm.cnic) ||
-    !(filledForm.fatherName) ||
-    !(filledForm.fatherContact) ||
-    !(filledForm.emergencyContact);
+    (filledForm.firstName) &&
+    (filledForm.constact) &&
+    (filledForm.email) &&
+    (filledForm.password) &&
+    (filledForm.course) &&
+    (filledForm.sec) &&
+    (filledForm.cnic) &&
+    (filledForm.fatherName) &&
+    (filledForm.fatherContact) &&
+    (filledForm.emergencyContact)
 
   const countHandler = () => {
     setCount((formData.length + 1).toString());
@@ -76,7 +79,7 @@ export default function StudentForm() {
     const formattedDate = new Date(dateString).toString().slice(4, 15);
     const curDate = new Date().toDateString().slice(4, 15);
     const miliSec = Date.parse(curDate) - Date.parse(`${formattedDate}`);
-    const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365)) || "";
+    const year = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365) && "");
     setAge(year);
     console.log(age);
   }
@@ -120,12 +123,13 @@ export default function StudentForm() {
   };
 
   const onSubmitHandler = () => {
+    setLoader(true)
     console.log(isReqField);
-    console.log(filledForm);
+    // console.log(filledForm);
     if (!!age && age < 1) {
       setOpen(true);
       return;
-    } else if (isReqField) {
+    } else if (!isReqField) {
       setAlertTitle("Required field error");
       setAlertMessage("Plz must fill all req fields");
       setOpen(!!alertTitle && alertMessage ? true : false);
@@ -142,12 +146,16 @@ export default function StudentForm() {
         .then((success) => {
           setAlertTitle(success.message);
           setAlertMessage("");
-          setOpen(!!alertTitle ? true : false);
+          setLoader(false)
+          setOpen(true);
           // setNodeId(success.nodeId)
           console.log(success.obj);
         })
         .then((err) => {
-          setAlertTitle("error message");
+          setAlertMessage("error message");
+          setAlertTitle("")
+          setLoader(false)
+          setOpen(true)
         });
     }
   };
@@ -264,17 +272,15 @@ export default function StudentForm() {
               }
             />
           </Grid>
-          <Grid item style={{ marginBlock: 20 }} xs={4}>
-            <TextField
+          <Grid item xs={4}>
+            <CusDateInput
               id="date"
               label="Date of Birth"
               type="date"
               // defaultValue={new Date().toISOSting()}
               onChange={(e) => dateChangeHandler("date", e.target.value)}
-              sx={{ width: "100%" }}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              shrink={true}
+              marginTop={0}
             />
           </Grid>
           <Grid item xs={8}>
@@ -291,18 +297,9 @@ export default function StudentForm() {
             />
           </Grid>
         </Grid>
-        <Button
-          variant="contained"
-          style={{
-            width: "15%",
-            alignSelf: "end",
-            marginBlock: 20,
-            fontSize: 18,
-          }}
-          onClick={onSubmitHandler}
-        >
-          SUBMIT
-        </Button>
+        <CusButton
+          loader={loader}
+          onClick={onSubmitHandler} />
       </div>
     </div>
   );

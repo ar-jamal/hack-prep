@@ -1,5 +1,5 @@
 import "../../App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
 import CusInput from "../../Config/components/MaterialUi/cusInput";
 import CusSelect from "../../Config/components/MaterialUi/cusSelect";
@@ -8,24 +8,36 @@ import TextField from "@mui/material/TextField";
 import CusAlert from "../../Config/components/MaterialUi/cusAlert";
 import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
 
+
 export default function CourseForm() {
   const [filledForm, setFilledForm] = useState({});
   const [trainers, setTrainers] = useState(0);
   const [assTrainers, setAssTrainers] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState("");
   const [open, setOpen] = useState(false);
-  const [course, setCourse] =useState("")
+  const [course, setCourse] = useState("")
+  const [checked, setChecked] = useState(false)
+  console.log(checked);
+
+  const getCoursesList = () => {
+
+  }
+
+  useEffect(() => {
+
+
+  })
 
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
-      filledForm[key] = val;
+    filledForm[key] = val;
     // setFilledForm({ ...filledForm });
   };
   const inputChangeHandler = (key, val) => {
     // console.log(trainers);
     filledForm[key] = val;
     setFilledForm({ ...filledForm });
-    // console.log(filledForm);
+    console.log(filledForm.isFormOpen);
   };
 
   const trainersInput = (trainers) => {
@@ -56,13 +68,13 @@ export default function CourseForm() {
         <Grid container columnSpacing={3}>
           <Grid item xs={8}>
             <CusSwitch
-              Text="is Form Open"
-              // label="is Form Open"
-              onChange={(e) => inputChangeHandler("IsFormOpen", e.target.check)}
+              label="is Form Open"
+              checked={checked}
+              onChange={(event) => setChecked(event.target.checked)}
             />
           </Grid>
           <Grid item xs={8}>
-          <CusSelect
+            <CusSelect
               label="Courses *"
               onChange={(e) => onCourChangeHandler("course", e.target.value)}
               value={course}
@@ -107,7 +119,7 @@ export default function CourseForm() {
           </Grid>
           {!!trainers && trainersInput(trainers)}
           <Grid item xs={12}>
-            <div style={{display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
                 variant="outlined"
                 onClick={() => setTrainers(trainers + 1)}

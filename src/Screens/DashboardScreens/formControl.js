@@ -76,8 +76,7 @@ export default function FormControl() {
         <Grid container columnSpacing={3} xs={12} /* sx= {{backgroundColor: "yellow"}} */>
           <Grid item xs={8}>
             <CusSwitch
-              Text="is Form Open"
-              // label="is Form Open"
+              label="is Form Open"
               onChange={(e) => inputChangeHandler("IsFormOpen", e.target.check)}
             />
           </Grid>
