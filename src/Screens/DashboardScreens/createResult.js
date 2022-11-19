@@ -62,6 +62,8 @@ function CreateResult() {
       result: "Pass",
     },
   ]);
+
+  
   const [resultTableData, setResultTableData] = useState([]);
   const [loader, setLoader] = useState(false);
 
