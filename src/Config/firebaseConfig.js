@@ -1,22 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBhZ_T8JUieFSwf9KGt0cukNSfTMZs1Yvc",
-  authDomain: "hackathon-prep-7397f.firebaseapp.com",
-  projectId: "hackathon-prep-7397f",
-  storageBucket: "hackathon-prep-7397f.appspot.com",
-  messagingSenderId: "949720788428",
-  appId: "1:949720788428:web:4ca106d62ee5b49d1f4169",
-  measurementId: "G-SRK9KQQSHV"
+  apiKey: "AIzaSyDg9J9EeLJR7ST8c2Fh-2O5QMX0JLg8b18",
+  authDomain: "jamal-boiler-plate.firebaseapp.com",
+  projectId: "jamal-boiler-plate",
+  storageBucket: "jamal-boiler-plate.appspot.com",
+  messagingSenderId: "1057692604502",
+  appId: "1:1057692604502:web:1012f3da0dd01a90c0c3f7"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 export default app;

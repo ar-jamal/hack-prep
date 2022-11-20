@@ -10,7 +10,7 @@ import { set } from "firebase/database";
 import { sendData } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
-import CusButton from "../Config/components/cusButton";
+import CusButton from "../Config/components/MaterialUi/cusButton";
 import blueSpinner from "../Utils/Gif/blueSpinner.gif"
 
 export default function StudentForm() {

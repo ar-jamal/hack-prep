@@ -124,4 +124,30 @@ const getData = (nodeName, id) => {
     });
 };
 
-export { signupUser, signinUser, logout, sendData, getData, checkUser };
+function deleteAll() {
+    // setList([])
+    let uid = auth.currentUser.uid
+    const reference = ref(db, `users/${uid}/todos`)
+    remove(reference).then(() => {
+      setSelected(null)
+      setTxt('')
+    })
+  }
+  function deleteId(id) {
+    let uid = auth.currentUser.uid
+    const reference = ref(db, `users/${uid}/todos/${id}`)
+    remove(reference)
+  }
+  
+  async function updateItem() {
+    let uid = auth.currentUser.uid
+    const reference = ref(db, `users/${uid}/todos/${selected.i}`)
+    update(reference, {
+      title: txt
+    }).then(() => {
+      setSelected(null)
+      setTxt('')
+    })
+  }
+
+export { signupUser, signinUser, logout, sendData, getData, checkUser, deleteAll, deleteId, updateItem };
