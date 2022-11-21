@@ -5,8 +5,8 @@ import { getDatabase, ref, set, onValue, push } from "firebase/database";
 // import { Password } from "@mui/icons-material";
 const db = getDatabase(app);
 const auth = getAuth(app)
-const signupUser = (arg) => {
-    const { email, password, userCategory, category } = arg
+const signupUser = (obj) => {
+    const { email, password, userCategory } = obj
     return new Promise((resolve, reject) => {
         // console.log(email)
         createUserWithEmailAndPassword(auth, email, password)
@@ -14,7 +14,7 @@ const signupUser = (arg) => {
                 console.log(userCredential.user)
                 const user = userCredential.user;
                 const reference = ref(db, `${userCategory}/${user.uid}`)
-                set(reference, arg)
+                set(reference, obj)
                     .then(() => {
                         resolve("credentials submitted successfully")
                     })
@@ -30,12 +30,12 @@ const signupUser = (arg) => {
     })
 }
 const signinUser = (obj) => {
-    const { email, password } = obj;
+    const { email, password, userCategory } = obj;
     return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
-                const reference = ref(db, `users/${user.uid}`)
+                const reference = ref(db, `${userCategory}/${user.uid}`)
                 onValue(reference, (data) => {
                     // console.log(data.val())
                     const userExist = data.exists();

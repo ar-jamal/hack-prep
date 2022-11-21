@@ -7,7 +7,7 @@ import CusSelect from "../Config/components/cusSelect";
 import CusAlert from "../Config/components/cusAlert";
 import Grid from "@mui/material/Grid";
 import { set } from "firebase/database";
-import { sendData } from "../Config/firebaseMethods";
+import { sendData, signupUser } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
 import CusButton from "../Config/components/cusButton";
@@ -136,6 +136,7 @@ export default function StudentForm() {
       })
       return;
     } else {
+      filledForm.category = "std"
       filledForm.age = myAge
       filledForm.rollNumber = generateStudentId();
       filledForm.registrationDate = new Date().toISOString().slice(0, 10);
@@ -144,6 +145,7 @@ export default function StudentForm() {
       filledForm.isActive = false;
       formData.push(filledForm);
       console.log(formData);
+      signupUser(filledForm.email)
       sendData(formData, "Student", nodeId)
         .then((success) => {
           console.log(success)
@@ -169,12 +171,12 @@ export default function StudentForm() {
   };
   const ageUpdateHandler = () => {
     if (!!myAge && myAge < 12) {
-      setAlertContent({
-        alertTitle: "Incorrect Date",
-        alertMessage: "Plz select back date in Date of birth field",
-        open: true
-      })
-      return;
+      // setAlertContent({
+      //   alertTitle: "Incorrect Date",
+      //   alertMessage: "Plz select back date in Date of birth field",
+      //   open: true
+      // })
+      return "nothing";
     }
   }
   if (age) {
@@ -316,8 +318,8 @@ export default function StudentForm() {
               value={myAge}
               open={alertContent.open}
               onClose={onAlertClose}
-              alertTitle={alertContent.alertTitle}
-              alertMessage={alertContent.alertMessage}
+              alertTitle={alertContent.alertTitle?? "no title"}
+              alertMessage={alertContent.alertMessage?? "no message"}
             />
           </Grid>
         </Grid>
