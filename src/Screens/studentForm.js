@@ -1,16 +1,16 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import CusInput from "../Config/components/MaterialUi/cusInput";
-import CusDateInput from "../Config/components/MaterialUi/cusInput";
-import CusSelect from "../Config/components/MaterialUi/cusSelect";
-import CusAlert from "../Config/components/MaterialUi/cusAlert";
+import CusInput from "../Config/components/cusInput";
+import CusDateInput from "../Config/components/cusInput";
+import CusSelect from "../Config/components/cusSelect";
+import CusAlert from "../Config/components/cusAlert";
 import Grid from "@mui/material/Grid";
 import { set } from "firebase/database";
 import { sendData } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
-import CusButton from "../Config/components/MaterialUi/cusButton";
+import CusButton from "../Config/components/cusButton";
 import blueSpinner from "../Utils/Gif/blueSpinner.gif"
 
 export default function StudentForm() {
@@ -22,15 +22,21 @@ export default function StudentForm() {
   const [dateValue, setDateValue] = useState(null);
   const [age, setAge] = useState("");
   const [ageDisabled, setAgeDisabled] = useState(false);
-  const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
   const [fig, setFig] = useState("00");
   const [rollNo, setRollNo] = useState("");
-  const [alertTitle, setAlertTitle] = useState("");
-  const [alertMessage, setAlertMessage] = useState("");
+  let myAge = 0
+  // const [alertTitle, setAlertTitle] = useState("");
+  // const [alertMessage, setAlertMessage] = useState("");
+  const [alertContent, setAlertContent] = useState({
+    alertTitle: "",
+    alertMessage: "",
+    open: false
+  })
   const [nodeId, setNodeId] = useState("");
 
-  const loaderHandler = 
+
+  const loaderHandler =
     <img
       style={{ width: "200px", alignSelf: "center" }}
       src={blueSpinner} />
@@ -84,21 +90,7 @@ export default function StudentForm() {
     setAge(val);
     console.log(age);
   }
-  const ageUpdated = () => {
-    if (!!age && age < 1) {
-      setAlertTitle("incorrect date");
-      setAlertMessage("Plz select back date in Date of birth field");
-      setOpen(true);
-      return;
-    } else {
-      filledForm["age"] = age;
-      setFilledForm({ ...filledForm });
-      console.log(filledForm.age);
-    }
-  };
-  useEffect(() => {
-    ageUpdated();
-  }, [age]);
+
 
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
@@ -111,31 +103,40 @@ export default function StudentForm() {
     setFilledForm({ ...filledForm });
   };
   const onAlertClose = () => {
-    setOpen(false);
+    alertContent.open = false;
     setAgeDisabled(false);
-    // setAlertTitle("");
-    // setAlertMessage("");
   };
   const ageDisabledHandler = () => {
     setAgeDisabled(true);
-    setAlertTitle("Date of Birth required only");
-    setAlertMessage("Age will be calculated on it");
-    setOpen(true);
+    setAlertContent({
+      alertTitle: "Date of Birth required only",
+      alertMessage: "Age will be calculated on it",
+      open: true
+    })
   };
 
   const onSubmitHandler = () => {
     setLoader(true)
     console.log(isReqField);
     // console.log(filledForm);
-    if (!!age && age < 1) {
-      setOpen(true);
+    if (!!myAge && myAge < 1) {
+      setLoader(false)
+      setAlertContent({
+        alertTitle: "invalid age",
+        alertMessage: "Plz select back date",
+        open: true
+      })
       return;
     } else if (!isReqField) {
-      setAlertTitle("Required field error");
-      setAlertMessage("Plz must fill all req fields");
-      setOpen(!!alertTitle && alertMessage ? true : false);
+      setLoader(false)
+      setAlertContent({
+        alertTitle: "Required field error",
+        alertMessage: "Plz must fill all required fields",
+        open: true
+      })
       return;
     } else {
+      filledForm.age = myAge
       filledForm.rollNumber = generateStudentId();
       filledForm.registrationDate = new Date().toISOString().slice(0, 10);
       filledForm.isFeeSubmitted = false;
@@ -144,34 +145,45 @@ export default function StudentForm() {
       formData.push(filledForm);
       console.log(formData);
       sendData(formData, "Student", nodeId)
-      .then((success) => {
+        .then((success) => {
           console.log(success)
-          setAlertTitle(success.message);
-          setAlertMessage("");
           setLoader(false)
-          setOpen(true);
+          setAlertContent({
+            alertTitle: "Successfull!",
+            alertMessage: success.message,
+            open: true
+          })
           // setNodeId(success.nodeId)
           console.log(success.obj);
         })
         .then((err) => {
-          setAlertMessage("error message");
-          setAlertTitle("")
-          setLoader(false)
-          setOpen(true)
+          // alertContent.alertMessage = err;
+          setAlertContent({
+            alertTitle: "error",
+            alertMessage: err,
+            open: true
+          })
+
         });
     }
   };
-
-  let myAge = 0 
-  if(age ){
-    // const dateString = age.toString();
-    // const formattedDate = new Date(dateString).toString().slice(4, 15);
-    
+  const ageUpdateHandler = () => {
+    if (!!myAge && myAge < 12) {
+      setAlertContent({
+        alertTitle: "Incorrect Date",
+        alertMessage: "Plz select back date in Date of birth field",
+        open: true
+      })
+      return;
+    }
+  }
+  if (age) {
     const miliSec = Date.now() - new Date(age).getTime();
     console.log(miliSec)
-    myAge = Math.floor(miliSec / (1000 * 60 * 60 * 24 * 365));
+    myAge = Math.floor(miliSec / 31536000000);
+    ageUpdateHandler();
   }
-  return ( loader? loaderHandler 
+  return (loader ? loaderHandler
     : <div className="Layout">
       <h2 style={{ marginBlock: "4%", fontSize: 28 }}>REGISTRATION FORM</h2>
       <div className="Body">
@@ -302,10 +314,10 @@ export default function StudentForm() {
               onClick={ageDisabledHandler}
               disabled={ageDisabled}
               value={myAge}
-              open={open}
+              open={alertContent.open}
               onClose={onAlertClose}
-              alertTitle={alertTitle ? alertTitle : ""}
-              alertMessage={alertMessage ? alertMessage : ""}
+              alertTitle={alertContent.alertTitle}
+              alertMessage={alertContent.alertMessage}
             />
           </Grid>
         </Grid>

@@ -5,23 +5,26 @@ import { getDatabase, ref, set, onValue, push } from "firebase/database";
 // import { Password } from "@mui/icons-material";
 const db = getDatabase(app);
 const auth = getAuth(app)
-const signupUser = (Arg) => {
-    const { email, password, userName, category } = Arg
+const signupUser = (arg) => {
+    const { email, password, userCategory, category } = arg
     return new Promise((resolve, reject) => {
         // console.log(email)
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                console.log(userCredential.user)
                 const user = userCredential.user;
-                const reference = ref(db, `users/${user.uid}`)
-                set(reference, Arg)
+                const reference = ref(db, `${userCategory}/${user.uid}`)
+                set(reference, arg)
                     .then(() => {
                         resolve("credentials submitted successfully")
                     })
                     .catch((errr) => {
+                        console.log(errr)
                         reject(errr)
                     })
             })
             .catch((err) => {
+                console.log(err)
                 reject(err)
             })
     })
@@ -124,30 +127,30 @@ const getData = (nodeName, id) => {
     });
 };
 
-function deleteAll() {
-    // setList([])
-    let uid = auth.currentUser.uid
-    const reference = ref(db, `users/${uid}/todos`)
-    remove(reference).then(() => {
-      setSelected(null)
-      setTxt('')
-    })
-  }
-  function deleteId(id) {
-    let uid = auth.currentUser.uid
-    const reference = ref(db, `users/${uid}/todos/${id}`)
-    remove(reference)
-  }
+// function deleteAll() {
+//     // setList([])
+//     let uid = auth.currentUser.uid
+//     const reference = ref(db, `users/${uid}/todos`)
+//     remove(reference).then(() => {
+//       setSelected(null)
+//       setTxt('')
+//     })
+//   }
+//   function deleteId(id) {
+//     let uid = auth.currentUser.uid
+//     const reference = ref(db, `users/${uid}/todos/${id}`)
+//     remove(reference)
+//   }
   
-  async function updateItem() {
-    let uid = auth.currentUser.uid
-    const reference = ref(db, `users/${uid}/todos/${selected.i}`)
-    update(reference, {
-      title: txt
-    }).then(() => {
-      setSelected(null)
-      setTxt('')
-    })
-  }
+//   async function updateItem() {
+//     let uid = auth.currentUser.uid
+//     const reference = ref(db, `users/${uid}/todos/${selected.i}`)
+//     update(reference, {
+//       title: txt
+//     }).then(() => {
+//       setSelected(null)
+//       setTxt('')
+//     })
+//   }
 
-export { signupUser, signinUser, logout, sendData, getData, checkUser, deleteAll, deleteId, updateItem };
+export { signupUser, signinUser, logout, sendData, getData, checkUser, /* deleteAll, deleteId, updateItem */ };

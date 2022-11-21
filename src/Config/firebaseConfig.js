@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDg9J9EeLJR7ST8c2Fh-2O5QMX0JLg8b18",
-  authDomain: "jamal-boiler-plate.firebaseapp.com",
-  projectId: "jamal-boiler-plate",
-  storageBucket: "jamal-boiler-plate.appspot.com",
-  messagingSenderId: "1057692604502",
-  appId: "1:1057692604502:web:1012f3da0dd01a90c0c3f7"
+  apiKey: "AIzaSyCKxTm1Lrsz0gVT7lP57meH7zhM1vb8O4I",
+  authDomain: "hack-prep-5edf1.firebaseapp.com",
+  projectId: "hack-prep-5edf1",
+  storageBucket: "hack-prep-5edf1.appspot.com",
+  messagingSenderId: "552635267036",
+  appId: "1:552635267036:web:64f3e65fbfa1fc75de0119"
 };
 
 // Initialize Firebase

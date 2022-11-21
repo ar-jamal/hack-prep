@@ -1,12 +1,12 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../Config/components/MaterialUi/cusInput";
-import CusSelect from "../../Config/components/MaterialUi/cusSelect";
+import CusInput from "../../Config/components/cusInput";
+import CusSelect from "../../Config/components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../Config/components/MaterialUi/cusAlert";
-import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
+import CusAlert from "../../Config/components/cusAlert";
+import CusSwitch from "../../Config/components/cusSwitch";
 import { sendData } from "../../Config/firebaseMethods";
 import { drawerWidth } from "./adminPanel";
 

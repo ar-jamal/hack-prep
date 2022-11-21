@@ -1,9 +1,9 @@
 import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusSelect from "../../Config/components/MaterialUi/cusSelect";
-import CusAlert from "../../Config/components/MaterialUi/cusAlert";
-import CusSwitch from "../../Config/components/MaterialUi/cusSwitch";
+import CusSelect from "../../Config/components/cusSelect";
+import CusAlert from "../../Config/components/cusAlert";
+import CusSwitch from "../../Config/components/cusSwitch";
 import { getData, sendData } from "../../Config/firebaseMethods";
 import CusTable from "../../cusTable";
 import CusChip from "../../Config/components/CusChip";

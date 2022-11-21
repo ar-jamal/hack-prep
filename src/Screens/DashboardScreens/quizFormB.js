@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
 import { useState } from "react";
-import CusInput from "../../Config/components/MaterialUi/cusInput";
-import CusSelect from "../../Config/components/MaterialUi/cusSelect";
+import CusInput from "../../Config/components/cusInput";
+import CusSelect from "../../Config/components/cusSelect";
 import Checkbox from "@mui/material/Checkbox";
 
 function QuizFormB() {
