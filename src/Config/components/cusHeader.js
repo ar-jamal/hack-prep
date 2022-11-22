@@ -1,38 +1,52 @@
-import SelectOptions from "./selectOptions";
-import TextField from "@mui/material/TextField";
-import PageviewIcon from "@mui/icons-material/Pageview";
+import CusButton from "./CUsBUtton";
+import { useNavigate } from "react-router-dom";
+import cusColors from "../../utils/COlors";
+import { Stack } from "@mui/material";
+import {logout} from "../FIrebaseMEthods"
 
-function Header(props) {
-        // console.log(props)
-        // [onClick, children]= props
-    
-    return (
-        <div className="Header-view" >
-            <img className="Main-logo"
-                src='https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/12/jewelry-logo.jpg'
-                alt='link broken'
-            />
-            <div style={{ flex: 1 }}>
-                <SelectOptions 
-                onChange= {props.onChange}
-                value= {props.value} />
-            </div>
-            <div
-                style={{ flex: 3 }}
-                className="Text-field-div">
-                <TextField 
-                onChange={props.onChangeInput}
-                sx={{
-                    border: 'none'
-                }} className="Text-field"
-                 />
-                <PageviewIcon
-                    sx={{ color: "blue", fontSize: 50, }}
-                    className="Search-button"
-                />
-            </div>
-        </div>
-    )
+function CusHeader(props) {
+  // {onClick, children}= props
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    logout();
+  }
+
+  return (
+    <Stack style={styles.headerDiv} direction="row" spacing={3}>
+      <CusButton
+        color= {cusColors.bodyBgColor}
+        title="Home"
+        onClick={() => navigate("/")}
+      />
+      <CusButton
+        color= {cusColors.bodyBgColor}
+        title="Sign in"
+        onClick={() => navigate("/Signin")}
+      />
+      <CusButton
+        color= {cusColors.bodyBgColor}
+        title="Register"
+        onClick={() => navigate("/signup")}
+      />
+      <CusButton
+        color= {cusColors.bodyBgColor}
+        // backgroundColor= {cusColors.buttonColor }
+        title="logout"
+        onClick={() => logoutHandler()}
+      />
+    </Stack>
+  );
 }
-export default Header;
-// sx= {{height: '30px', width: 30}}111
+export default CusHeader;
+
+const styles = {
+  headerDiv: {
+    backgroundColor: cusColors.headerBgColor,
+    diplay: "flex",
+    boxSizing: "border-box",
+    width: "100%",
+    height: "10%",
+    paddingInline: "3%",
+    justifyContent: "flex-end",
+  },
+};

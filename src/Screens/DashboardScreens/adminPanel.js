@@ -25,15 +25,15 @@ import {
   StarBorder,
 } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
-import CourseForm from "./courseForm";
-import QuizForm from "./quizForm";
-import NotFound from "./NotFound";
-import CoursesList from "./listOfCourses";
-import Signin from "../singin";
-import Signup from "../signup";
-import QuizFormB from "./quizFormB";
-import CreateResult from "./createResult";
-import FormControl from "./formControl";
+import CourseForm from "./COurseFOrm";
+import QuizForm from "./QUizFOrm";
+import NotFound from "./NOtFOund";
+import CoursesList from "./LIstOfCOurses";
+import Signin from "../SIngIn";
+import Signup from "../SIgnUp";
+import QuizFormB from "./QUizFOrmB";
+import CreateResult from "./CReateREsult";
+import FormControl from "./FOrmCOntrol";
 const drawerWidth = 240;
 
 function AdminPanel({ data, ...props }) {

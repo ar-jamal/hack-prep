@@ -2,7 +2,7 @@ import { FormControlLabel } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { alpha, styled } from '@mui/material/styles';
 import { pink } from '@mui/material/colors';
-import colors from "../../Utils/colors";
+import colors from "../../utils/COlors";
 import { useState } from "react";
 
 

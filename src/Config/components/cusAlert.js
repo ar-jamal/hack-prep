@@ -7,10 +7,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Input from "./cusInput";
+import Input from "./CUsINput";
 
 export default function CusAlert(props) {
   const [open, setOpen] = useState(false);
+
+    // switch(props.type) {
+    //   case "onClick": return (alertTitle: "changeClick") 
+    // }
 
   return (
     <div /* style={{ marginBlock: 18 }} */>

@@ -3,8 +3,8 @@ import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signupUser } from "../Config/firebaseMethods";
-import RadioGroupForm from "../Config/components/radioGroup";
+import { signupUser } from "../CONFIG/FIrebaseMEthods";
+import RadioGroupForm from "../CONFIG/COMPONENTS/CUsRAdio";
 
 export default function Signup() {
     const navigate = useNavigate();

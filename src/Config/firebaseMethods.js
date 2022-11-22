@@ -1,4 +1,4 @@
-import app from "./firebaseConfig";
+import app from "./FIrebaseCOnfig";
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
 

@@ -1,12 +1,12 @@
 import "../../App.css";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../Config/components/cusInput";
-import CusSelect from "../../Config/components/cusSelect";
+import CusInput from "../../CONFIG/COMPONENTS/CUsINput";
+import CusSelect from "../../CONFIG/COMPONENTS/CUsSElect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../Config/components/cusAlert";
-import CusSwitch from "../../Config/components/cusSwitch";
+import CusAlert from "../../CONFIG/COMPONENTS/CUsALert";
+import CusSwitch from "../../CONFIG/COMPONENTS/CUsSWitch";
 
 
 export default function CourseForm() {

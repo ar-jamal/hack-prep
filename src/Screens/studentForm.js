@@ -1,20 +1,20 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import CusInput from "../Config/components/cusInput";
-import CusDateInput from "../Config/components/cusInput";
-import CusSelect from "../Config/components/cusSelect";
-import CusAlert from "../Config/components/cusAlert";
+import CusInput from "../CONFIG/COMPONENTS/CUsINput";
+import CusDateInput from "../CONFIG/COMPONENTS/CUsINput";
+import CusSelect from "../CONFIG/COMPONENTS/CUsSElect";
+import CusAlert from "../CONFIG/COMPONENTS/CUsALert";
 import Grid from "@mui/material/Grid";
 import { set } from "firebase/database";
-import { sendData, signupUser } from "../Config/firebaseMethods";
+import { sendData, signupUser } from "../CONFIG/FIrebaseMEthods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
-import CusButton from "../Config/components/cusButton";
-import blueSpinner from "../Utils/Gif/blueSpinner.gif"
+import CusButton from "../CONFIG/COMPONENTS/CUsBUtton";
+import blueSpinner from "../utils/GIF/blueSpinner.gif";
 
 export default function StudentForm() {
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState([]);
   const [filledForm, setFilledForm] = useState({});
   const [course, setCourse] = useState("");
@@ -25,33 +25,31 @@ export default function StudentForm() {
   const [count, setCount] = useState(0);
   const [fig, setFig] = useState("00");
   const [rollNo, setRollNo] = useState("");
-  let myAge = 0
+  let myAge = 0;
   // const [alertTitle, setAlertTitle] = useState("");
   // const [alertMessage, setAlertMessage] = useState("");
   const [alertContent, setAlertContent] = useState({
     alertTitle: "",
     alertMessage: "",
-    open: false
-  })
+    open: false,
+  });
   const [nodeId, setNodeId] = useState("");
 
-
-  const loaderHandler =
-    <img
-      style={{ width: "200px", alignSelf: "center" }}
-      src={blueSpinner} />
+  const loaderHandler = (
+    <img style={{ width: "200px", alignSelf: "center" }} src={blueSpinner} />
+  );
 
   const isReqField =
-    (filledForm.firstName) &&
-    (filledForm.constact) &&
-    (filledForm.email) &&
-    (filledForm.password) &&
-    (filledForm.course) &&
-    (filledForm.sec) &&
-    (filledForm.cnic) &&
-    (filledForm.fatherName) &&
-    (filledForm.fatherContact) &&
-    (filledForm.emergencyContact)
+    !!filledForm.firstName &&
+    !!filledForm.contact &&
+    !!filledForm.email &&
+    !!filledForm.password &&
+    !!filledForm.course &&
+    !!filledForm.sec &&
+    !!filledForm.cnic &&
+    !!filledForm.fatherName &&
+    !!filledForm.fatherContact &&
+    !!filledForm.emergencyContact;
 
   const countHandler = () => {
     setCount((formData.length + 1).toString());
@@ -86,12 +84,9 @@ export default function StudentForm() {
     setFilledForm({ ...filledForm });
   };
   async function dateChangeHandler(key, val) {
-
     setAge(val);
     console.log(age);
   }
-
-
   const onCourChangeHandler = (key, val) => {
     setCourse(val);
     filledForm[key] = val;
@@ -103,7 +98,12 @@ export default function StudentForm() {
     setFilledForm({ ...filledForm });
   };
   const onAlertClose = () => {
-    alertContent.open = false;
+    setAlertContent({
+      alertTitle: "",
+      alertMessage: "",
+      open: false,
+    });
+    // alertContent.open = false;
     setAgeDisabled(false);
   };
   const ageDisabledHandler = () => {
@@ -111,33 +111,33 @@ export default function StudentForm() {
     setAlertContent({
       alertTitle: "Date of Birth required only",
       alertMessage: "Age will be calculated on it",
-      open: true
-    })
+      open: true,
+    });
   };
 
   const onSubmitHandler = () => {
-    setLoader(true)
+    setLoader(true);
+    filledForm.age = myAge;
     console.log(isReqField);
-    // console.log(filledForm);
+    console.log(filledForm);
     if (!!myAge && myAge < 1) {
-      setLoader(false)
+      setLoader(false);
       setAlertContent({
         alertTitle: "invalid age",
         alertMessage: "Plz select back date",
-        open: true
-      })
+        open: true,
+      });
       return;
     } else if (!isReqField) {
-      setLoader(false)
+      setLoader(false);
       setAlertContent({
         alertTitle: "Required field error",
         alertMessage: "Plz must fill all required fields",
-        open: true
-      })
+        open: true,
+      });
       return;
     } else {
-      filledForm.category = "std"
-      filledForm.age = myAge
+      filledForm.userCategory = "student";
       filledForm.rollNumber = generateStudentId();
       filledForm.registrationDate = new Date().toISOString().slice(0, 10);
       filledForm.isFeeSubmitted = false;
@@ -145,27 +145,28 @@ export default function StudentForm() {
       filledForm.isActive = false;
       formData.push(filledForm);
       console.log(formData);
-      signupUser(filledForm.email)
-      sendData(formData, "Student", nodeId)
+      signupUser(filledForm)
+      // sendData(formData, "Student", nodeId)
         .then((success) => {
-          console.log(success)
-          setLoader(false)
+          console.log(success);
+          setLoader(false);
           setAlertContent({
             alertTitle: "Successfull!",
             alertMessage: success.message,
-            open: true
-          })
+            open: true,
+          });
           // setNodeId(success.nodeId)
           console.log(success.obj);
         })
         .then((err) => {
+          setLoader(false);
           // alertContent.alertMessage = err;
+          console.log(err);
           setAlertContent({
             alertTitle: "error",
             alertMessage: err,
-            open: true
-          })
-
+            open: true,
+          });
         });
     }
   };
@@ -176,17 +177,19 @@ export default function StudentForm() {
       //   alertMessage: "Plz select back date in Date of birth field",
       //   open: true
       // })
-      return "nothing";
+      console.log("nothing");
     }
-  }
+  };
   if (age) {
     const miliSec = Date.now() - new Date(age).getTime();
-    console.log(miliSec)
+    console.log(miliSec);
     myAge = Math.floor(miliSec / 31536000000);
     ageUpdateHandler();
   }
-  return (loader ? loaderHandler
-    : <div className="Layout">
+  return loader ? (
+    loaderHandler
+  ) : (
+    <div className="Layout">
       <h2 style={{ marginBlock: "4%", fontSize: 28 }}>REGISTRATION FORM</h2>
       <div className="Body">
         <Grid container columnSpacing={3} /* columns={12} */>
@@ -318,14 +321,12 @@ export default function StudentForm() {
               value={myAge}
               open={alertContent.open}
               onClose={onAlertClose}
-              alertTitle={alertContent.alertTitle?? "no title"}
-              alertMessage={alertContent.alertMessage?? "no message"}
+              alertTitle={alertContent.alertTitle ?? "no title"}
+              alertMessage={alertContent.alertMessage ?? "no message"}
             />
           </Grid>
         </Grid>
-        <CusButton
-          loader={loader}
-          onClick={onSubmitHandler} />
+        <CusButton loader={loader} onClick={onSubmitHandler} />
       </div>
     </div>
   );
