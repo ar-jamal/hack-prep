@@ -1,12 +1,13 @@
 import "../../App.css";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../CONFIG/COMPONENTS/CUsINput";
-import CusSelect from "../../CONFIG/COMPONENTS/CUsSElect";
+import CusInput from "../../CONFIG/components/cusInput";
+import CusSelect from "../../CONFIG/components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../CONFIG/COMPONENTS/CUsALert";
-import CusSwitch from "../../CONFIG/COMPONENTS/CUsSWitch";
+import CusAlert from "../../CONFIG/components/cusAlert";
+import CusSwitch from "../../CONFIG/components/cusSwitch";
+import { sendData } from "../../CONFIG/firebaseMethods";
 
 
 export default function CourseForm() {
@@ -50,6 +51,12 @@ export default function CourseForm() {
     return items;
   };
 
+  const onSubmitHandler= () => {
+    console.log(filledForm)
+    filledForm.category= "admin"
+    // sendData(filledForm, "admin") 
+  }
+
   return (
     <div sx={{ width: { sm: `calc(100% - 420px)` } }}>
       <h2 style={{ marginBlock: "4%", fontSize: 28, textAlign: "center" }}>
@@ -57,7 +64,7 @@ export default function CourseForm() {
       </h2>
       <div className="Body">
         <Grid container columnSpacing={3}>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <CusSwitch
               label="is Form Open"
               checked={checked}
@@ -77,7 +84,7 @@ export default function CourseForm() {
               ]}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <CusInput
               label="Course Duration"
               placeholder="duration in month"
@@ -86,13 +93,13 @@ export default function CourseForm() {
               }
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <CusInput
               label="No. of Quiz"
               onChange={(e) => inputChangeHandler("NoOfQuiz", e.target.value)}
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <CusInput
               label="Fee in Rupees "
               onChange={(e) =>
@@ -131,7 +138,7 @@ export default function CourseForm() {
                   marginBlock: 20,
                   fontSize: 18,
                 }}
-              // onClick={onSubmitHandler}
+              onClick={onSubmitHandler}
               >
                 SUBMIT
               </Button>

@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
-import SMButton from "../../config/components/SMButton";
-import SMGrid from "../../config/components/SMGrid";
-import SMInput from "../../config/components/SMInput";
-import SMSelect from "../../config/components/SMSelect";
-import { getData, sendData } from "../../config/firebasemethods";
+import SMButton from "../../Config/components/cusBUtton";
+import SMGrid from "../../Config/components/SMGrid";
+import SMInput from "../../Config/components/SMInput";
+import SMSelect from "../../Config/components/SMSelect";
+import { getData, sendData } from "../../Config/firebaseMethods";
 
 function Cities() {
     const [model, setModel] = useState({});

@@ -1,4 +1,4 @@
-import app from "./FIrebaseCOnfig";
+import app from "./firebaseConfig";
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
@@ -13,10 +13,11 @@ const signupUser = (obj) => {
             .then((userCredential) => {
                 console.log(userCredential.user)
                 const user = userCredential.user;
-                const reference = ref(db, `${userCategory}/${user.uid}`)
+                const reference = ref(db, `admin/${user.uid}`)
                 set(reference, obj)
-                    .then(() => {
+                    .then((success) => {
                         resolve("credentials submitted successfully")
+                        console.log(success)
                     })
                     .catch((errr) => {
                         console.log(errr)
@@ -30,16 +31,20 @@ const signupUser = (obj) => {
     })
 }
 const signinUser = (obj) => {
-    const { email, password, userCategory } = obj;
+    const { email, password } = obj;
     return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
-                const reference = ref(db, `${userCategory}/${user.uid}`)
+                console.log(user)
+                const reference = ref(db, `user/${user.uid}`)
                 onValue(reference, (data) => {
                     // console.log(data.val())
                     const userExist = data.exists();
                     if (userExist) {
+                        // if(userExist.category !== ("student" && "subAdmin"))
+                        // console.log(data.val())
+                        
                         resolve(data.val())
                     } else {
                         reject("error in sent details")

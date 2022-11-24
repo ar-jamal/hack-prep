@@ -1,14 +1,14 @@
 import "../../App.css";
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../CONFIG/COMPONENTS/CUsINput";
-import CusSelect from "../../CONFIG/COMPONENTS/CUsSElect";
+import CusInput from "../../CONFIG/components/cusInput";
+import CusSelect from "../../CONFIG/components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../CONFIG/COMPONENTS/CUsALert";
-import CusSwitch from "../../CONFIG/COMPONENTS/CUsSWitch";
-import { sendData } from "../../CONFIG/FIrebaseMEthods";
-import { drawerWidth } from "./ADminPAnel";
+import CusAlert from "../../CONFIG/components/cusAlert";
+import CusSwitch from "../../CONFIG/components/cusSwitch";
+import { sendData } from "../../CONFIG/firebaseMethods";
+import { drawerWidth } from "./adminPanel";
 
 export default function FormControl() {
   const [formData, setFormData] = useState([])

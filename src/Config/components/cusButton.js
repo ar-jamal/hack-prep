@@ -1,6 +1,6 @@
 import React, { Image, useState } from "react";
 import { Button } from "@mui/material";
-import blueSpinner from "../../utils/GIF/blueSpinner.gif";
+import blueSpinner from "../../Utils/Gif/blueSpinner.gif";
 
 export default function CusButton(props) {
   const {
@@ -23,18 +23,18 @@ export default function CusButton(props) {
   return (
     <Button
       variant={variant}
-      size= "medium"
+      size="medium"
       sx={{
         minWidth: minWidth,
         height: height,
         marginBlock: marginBlock,
         fontSize: fontSize ?? "18px",
-        padding: padding?? "30px",
-        // fontWeight: "10px",
         alignSelf: alignSelf,
         backgroundColor: backgroundColor,
         color: color,
-        
+        paddingBlock: "12px",
+        marginBlock: marginBlock
+
       }}
       onClick={onClick}
     >

@@ -7,7 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Input from "./CUsINput";
+import Input from "./cusInput";
 
 export default function CusAlert(props) {
   const [open, setOpen] = useState(false);

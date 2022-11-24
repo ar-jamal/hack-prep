@@ -25,15 +25,16 @@ import {
   StarBorder,
 } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
-import CourseForm from "./COurseFOrm";
-import QuizForm from "./QUizFOrm";
-import NotFound from "./NOtFOund";
-import CoursesList from "./LIstOfCOurses";
-import Signin from "../SIngIn";
-import Signup from "../SIgnUp";
-import QuizFormB from "./QUizFOrmB";
-import CreateResult from "./CReateREsult";
-import FormControl from "./FOrmCOntrol";
+import CourseForm from "./courseForm";
+import QuizForm from "./quizForm";
+import NotFound from "./NotFound";
+import CoursesList from "./listOfCourses";
+import Signin from "../singin";
+import Signup from "../signup";
+import QuizFormB from "./quizFormB";
+import CreateResult from "./createResult";
+import FormControl from "./formControl";
+import TrainerForm from "./trainerForm";
 const drawerWidth = 240;
 
 function AdminPanel({ data, ...props }) {
@@ -63,6 +64,11 @@ function AdminPanel({ data, ...props }) {
     {
       route: "formcontrol",
       name: "Registeration-form Control ",
+      icon: () => <SortRounded />,
+    },
+    {
+      route: "trainerForm",
+      name: "Trainer-form",
       icon: () => <SortRounded />,
     },
   ];
@@ -181,6 +187,7 @@ function AdminPanel({ data, ...props }) {
             <Route path="quizform" element={<QuizForm />} />
             <Route path="createresult" element={<CreateResult />} />
             <Route path="formcontrol" element={<FormControl />} />
+            <Route path="trainerform" element={<TrainerForm />} />
             {/* <Route path="admin/*" element={<NotFound />} /> */}
           </Routes>
         </Box>

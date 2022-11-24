@@ -4,8 +4,8 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signinUser } from "../CONFIG/FIrebaseMEthods";
-import AlertWithButton from "../CONFIG/COMPONENTS/CUsALert";
+import { signinUser } from "../CONFIG/firebaseMethods";
+import AlertWithButton from "../CONFIG/components/cusAlert";
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -16,10 +16,12 @@ export default function Signin() {
 
   let signinAuth = () => {
     signinUser({ email, password })
-      .then((success) => {
-        if (success) {
-          console.log(success);
-          navigate("/", { state: success.userName });
+      .then((userData) => {
+        if (userData.category === "student") {
+          navigate(`/studentprofile/:${userData.firstName} ${userData.lastName}`/* , { state: success.userName } */);
+        } else if(userData.category === "adm") {
+          navigate(`/admin/: Main Admin`/* , { state: success.userName } */);
+          
         }
       })
       .catch((error) => {

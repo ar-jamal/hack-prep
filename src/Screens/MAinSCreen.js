@@ -1,7 +1,7 @@
 import "../App.css";
-import blueSpinner from "../utils/GIF/blueSpinner.gif";
-import cusColors from "../utils/COlors";
-import CusHeader from "../CONFIG/COMPONENTS/CUsHEader";
+import blueSpinner from "../Utils/Gif/blueSpinner.gif";
+import cusColors from "../Utils/colors";
+import CusHeader from "../CONFIG/components/cusHeader";
 
 const cardElements = [
   {

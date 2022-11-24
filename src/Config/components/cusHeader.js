@@ -1,8 +1,8 @@
-import CusButton from "./CUsBUtton";
+import CusButton from "./cusButton";
 import { useNavigate } from "react-router-dom";
-import cusColors from "../../utils/COlors";
+import cusColors from "../../Utils/colors";
 import { Stack } from "@mui/material";
-import {logout} from "../FIrebaseMEthods"
+import {logout} from "../firebaseMethods"
 
 function CusHeader(props) {
   // {onClick, children}= props
