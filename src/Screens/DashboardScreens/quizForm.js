@@ -5,9 +5,9 @@ import CusInput from "../../Config/Components/cusInput";
 import CusSelect from "../../Config/Components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import AlertDialog from "../../Config/Components/CUsALert";
+import AlertDialog from "../../Config/Components/cusAlert";
 import { sendData } from "../../Config/firebaseMethods";
-import CusAlert from "../../Config/Components/CUsALert";
+import CusAlert from "../../Config/Components/cusAlert";
 // import { map } from "@firebase/util";
 
 export default function QuizForm() {

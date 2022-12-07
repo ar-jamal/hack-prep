@@ -5,7 +5,7 @@ import CusInput from "../../Config/Components/cusInput";
 import CusSelect from "../../Config/Components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../Config/Components/CUsALert";
+import CusAlert from "../../Config/Components/cusAlert";
 import CusSwitch from "../../Config/Components/cusSwitch";
 import { sendData } from "../../Config/firebaseMethods";
 import CusButton from "../../Config/Components/cusButton";

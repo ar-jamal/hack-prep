@@ -1,6 +1,6 @@
 import CusButton from "./cusButton";
 import { useNavigate } from "react-router-dom";
-import cusColors from "../../utils/colors";
+import cusColors from "../../Utils/colors";
 import { Stack } from "@mui/material";
 import {logout} from "../firebaseMethods"
 

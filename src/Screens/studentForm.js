@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import CusInput from "../Config/Components/cusInput";
 import CusDateInput from "../Config/Components/cusInput";
 import CusSelect from "../Config/Components/cusSelect";
-import CusAlert from "../Config/Components/CUsALert";
+import CusAlert from "../Config/Components/cusAlert";
 import Grid from "@mui/material/Grid";
 import { set } from "firebase/database";
 import { sendData, signupUser } from "../Config/firebaseMethods";
