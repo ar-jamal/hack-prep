@@ -27,7 +27,7 @@ import {
 import { Collapse } from "@mui/material";
 import CourseForm from "./courseForm";
 import QuizForm from "./quizForm";
-import NotFound from "./NotFound";
+import NotFound from "./notFound";
 import CoursesList from "./listOfCourses";
 import Signin from "../singin";
 import Signup from "../signup";

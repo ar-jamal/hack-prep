@@ -1,12 +1,12 @@
 import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusSelect from "../../CONFIG/components/cusSelect";
-import CusAlert from "../../CONFIG/components/cusAlert";
-import CusSwitch from "../../CONFIG/components/cusSwitch";
-import { getData, sendData } from "../../CONFIG/firebaseMethods";
+import CusSelect from "../../Config/Components/cusSelect";
+import CusAlert from "../../Config/Components/CUsALert";
+import CusSwitch from "../../Config/Components/cusSwitch";
+import { getData, sendData } from "../../Config/firebaseMethods";
 import CusTable from "../../cusTable";
-import CusChip from "../../CONFIG/components/CusChip";
+import CusChip from "../../Config/Components/cusChip";
 
 function CreateResult() {
   const [filledForm, setFilledForm] = useState({});

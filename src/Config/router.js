@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AdminPanel from "../Screens/DashboardScreens/adminPanel";
-import NotFound from "../Screens/DashboardScreens/NotFound";
-import MainScreen from "../Screens/MAinSCreen";
+import NotFound from "../Screens/DashboardScreens/notFound";
+import MainScreen from "../Screens/mainScreen";
 import ResultScreen from "../Screens/resultScreen";
 import Signup from "../Screens/signup";
 import Signin from "../Screens/singin";

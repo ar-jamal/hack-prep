@@ -1,14 +1,14 @@
 import "../../App.css";
 import { useEffect, useState } from "react";
 import { Button, Typography } from "@mui/material";
-import CusInput from "../../CONFIG/components/cusInput";
-import CusSelect from "../../CONFIG/components/cusSelect";
+import CusInput from "../../Config/Components/cusInput";
+import CusSelect from "../../Config/Components/cusSelect";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import CusAlert from "../../CONFIG/components/cusAlert";
-import CusSwitch from "../../CONFIG/components/cusSwitch";
-import { sendData } from "../../CONFIG/firebaseMethods";
-import CusButton from "../../CONFIG/components/cusButton";
+import CusAlert from "../../Config/Components/CUsALert";
+import CusSwitch from "../../Config/Components/cusSwitch";
+import { sendData } from "../../Config/firebaseMethods";
+import CusButton from "../../Config/Components/cusButton";
 
 
 export default function TrainerForm() {

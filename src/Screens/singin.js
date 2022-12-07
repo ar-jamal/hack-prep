@@ -4,8 +4,8 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signinUser } from "../CONFIG/firebaseMethods";
-import AlertWithButton from "../CONFIG/components/cusAlert";
+import { signinUser } from "../Config/firebaseMethods";
+import AlertWithButton from "../Config/Components/CUsALert";
 
 export default function Signin() {
   const navigate = useNavigate();
