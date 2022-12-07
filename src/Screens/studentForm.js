@@ -1,16 +1,16 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import CusInput from "../Config/Components/cusInput";
-import CusDateInput from "../Config/Components/cusInput";
-import CusSelect from "../Config/Components/cusSelect";
-import CusAlert from "../Config/Components/cusAlert";
+import CusInput from "../Config/cusComp/cusInput";
+import CusDateInput from "../Config/cusComp/cusInput";
+import CusSelect from "../Config/cusComp/cusSelect";
+import CusAlert from "../Config/cusComp/cusAlert";
 import Grid from "@mui/material/Grid";
 import { set } from "firebase/database";
 import { sendData, signupUser } from "../Config/firebaseMethods";
 import { Password } from "@mui/icons-material";
 import { async } from "@firebase/util";
-import CusButton from "../Config/Components/cusButton";
+import CusButton from "../Config/cusComp/cusButton";
 import blueSpinner from "../Utils/Gif/blueSpinner.gif";
 
 export default function StudentForm() {
